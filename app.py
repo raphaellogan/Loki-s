@@ -64,3 +64,9 @@ class Registro:
         self.id_treinamento = id_treinamento # Guarda o que fez (chave estrangeira)
         self.data_realizacao = data_realizacao # Guarda quando fez
         self.status = status # Guarda o estado atual (ex: ativo ou vencido)
+
+        # comentario so pra editar o arquivo
+
+@app.route('/api/funcionario', method='POST')
+def teste():
+    print("teste")
