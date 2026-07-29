@@ -1,0 +1,284 @@
+<style>
+body{
+    background:#EEF4F8;
+}
+
+.history-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.page-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
+.table tbody tr{
+    transition:.2s;
+}
+
+.table tbody tr:hover{
+    background:#F8FAFC;
+}
+
+.badge{
+    padding:.55rem .85rem;
+    font-weight:500;
+}
+
+.filtro{
+    border-radius:12px;
+}
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- Cabeçalho -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title">
+                Histórico de EPIs
+            </h2>
+
+            <p class="page-subtitle mb-0">
+                Consulte suas últimas movimentações de equipamentos.
+            </p>
+
+        </div>
+
+        <button class="btn btn-outline-primary">
+            <i class="bi bi-clock-history"></i>
+            Ver histórico completo
+        </button>
+
+    </div>
+
+    <!-- Histórico -->
+
+    <div class="card history-card">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-4">
+                Últimas movimentações
+            </h5>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Data</th>
+
+                            <th>Movimentação</th>
+
+                            <th>EPI</th>
+
+                            <th>Responsável</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>08/07/2026</td>
+
+                            <td>
+                                <span class="badge bg-primary">
+                                    Retirada
+                                </span>
+                            </td>
+
+                            <td>Capacete MSA V-Gard</td>
+
+                            <td>João Ferreira</td>
+
+                            <td>
+                                <span class="text-success fw-semibold">
+                                    Concluído
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>03/07/2026</td>
+
+                            <td>
+                                <span class="badge bg-warning text-dark">
+                                    Troca
+                                </span>
+                            </td>
+
+                            <td>Luvas de Raspa</td>
+
+                            <td>João Ferreira</td>
+
+                            <td>
+                                <span class="text-success fw-semibold">
+                                    Concluído
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>22/06/2026</td>
+
+                            <td>
+                                <span class="badge bg-danger">
+                                    Devolução
+                                </span>
+                            </td>
+
+                            <td>Óculos de Proteção</td>
+
+                            <td>Maria Oliveira</td>
+
+                            <td>
+                                <span class="text-success fw-semibold">
+                                    Recebido
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>10/06/2026</td>
+
+                            <td>
+                                <span class="badge bg-primary">
+                                    Retirada
+                                </span>
+                            </td>
+
+                            <td>Botina de Segurança</td>
+
+                            <td>João Ferreira</td>
+
+                            <td>
+                                <span class="text-success fw-semibold">
+                                    Concluído
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>29/05/2026</td>
+
+                            <td>
+                                <span class="badge bg-primary">
+                                    Retirada
+                                </span>
+                            </td>
+
+                            <td>Protetor Auricular</td>
+
+                            <td>Maria Oliveira</td>
+
+                            <td>
+                                <span class="text-success fw-semibold">
+                                    Concluído
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Resumo -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-4">
+
+            <div class="card history-card">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-secondary">
+                        Retiradas
+                    </h6>
+
+                    <h2 class="fw-bold text-primary">
+                        18
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card history-card">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-secondary">
+                        Devoluções
+                    </h6>
+
+                    <h2 class="fw-bold text-danger">
+                        15
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card history-card">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-secondary">
+                        Trocas
+                    </h6>
+
+                    <h2 class="fw-bold text-warning">
+                        6
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

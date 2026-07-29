@@ -1,0 +1,201 @@
+<!-- Gráficos -->
+<section class="graficos-container">
+
+    <!-- Gráfico de barras -->
+    <article class="grafico-card">
+        <h3>ASOs por mês</h3>
+
+        <div class="canvas-container">
+            <canvas id="graficoBarras"></canvas>
+        </div>
+    </article>
+
+    <!-- Gráfico de pizza -->
+    <article class="grafico-card">
+        <h3>Status dos ASOs</h3>
+
+        <div class="canvas-container">
+            <canvas id="graficoPizza"></canvas>
+        </div>
+    </article>
+
+</section>
+
+<style>
+.graficos-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.grafico-card {
+    flex: 1;
+    min-width: 0;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.grafico-card h3 {
+    margin: 0 0 15px;
+    color: #0067b1;
+    font-size: 18px;
+    text-align: center;
+}
+
+.canvas-container {
+    position: relative;
+    width: 100%;
+    height: 320px;
+}
+
+.canvas-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+@media (max-width: 900px) {
+    .graficos-container {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+(() => {
+    // Confirma que a biblioteca foi carregada
+    if (typeof Chart === "undefined") {
+        console.error("A biblioteca Chart.js não foi carregada.");
+        return;
+    }
+
+    const canvasBarras =
+        document.getElementById("graficoBarras");
+
+    const canvasPizza =
+        document.getElementById("graficoPizza");
+
+    if (!canvasBarras || !canvasPizza) {
+        console.error("Os elementos dos gráficos não foram encontrados.");
+        return;
+    }
+
+    // Gráfico de barras
+    new Chart(canvasBarras, {
+        type: "bar",
+
+        data: {
+            labels: [
+                "Jan",
+                "Fev",
+                "Mar",
+                "Abr",
+                "Mai",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Set",
+                "Out",
+                "Nov",
+                "Dez"
+            ],
+
+            datasets: [
+                {
+                    label: "Quantidade de ASOs",
+                    data: [
+                        12,
+                        19,
+                        15,
+                        10,
+                        18,
+                        24,
+                        20,
+                        16,
+                        22,
+                        19,
+                        14,
+                        17
+                    ],
+                    backgroundColor: "#0067b1",
+                    borderRadius: 8,
+                    borderSkipped: false
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+
+                    ticks: {
+                        stepSize: 5
+                    }
+                },
+
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfico de pizza
+    new Chart(canvasPizza, {
+        type: "pie",
+
+        data: {
+            labels: [
+                "Aptos",
+                "Inaptos",
+                "Pendentes"
+            ],
+
+            datasets: [
+                {
+                    data: [65, 20, 15],
+
+                    backgroundColor: [
+                        "#4caf50",
+                        "#f44336",
+                        "#ffc107"
+                    ],
+
+                    borderWidth: 2,
+                    borderColor: "#ffffff"
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    position: "bottom",
+
+                    labels: {
+                        padding: 20,
+                        usePointStyle: true
+                    }
+                }
+            }
+        }
+    });
+})();
+</script>

@@ -1,0 +1,720 @@
+<style>
+
+body{
+    background:#EDF4F8;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+    transition:.2s;
+}
+
+.dashboard-card:hover{
+    transform:translateY(-3px);
+}
+
+.icon-box{
+
+    width:55px;
+    height:55px;
+
+    border-radius:15px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:1.5rem;
+}
+
+
+.epi-card{
+
+    border:1px solid #e5e7eb;
+    border-radius:15px;
+    transition:.2s;
+
+}
+
+
+.epi-card:hover{
+
+    border-color:#2563EB;
+    transform:translateY(-3px);
+
+}
+
+
+.epi-icon{
+
+    width:60px;
+    height:60px;
+
+    border-radius:15px;
+
+    background:#EFF6FF;
+
+    color:#2563EB;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:1.8rem;
+
+}
+
+
+</style>
+
+
+<div class="container-fluid p-4">
+
+
+    <!-- Cabeçalho -->
+
+    <div class="mb-4">
+
+        <h2 class="fw-bold">
+
+            Solicitar Novo EPI 🦺
+
+        </h2>
+
+        <p class="text-secondary">
+
+            Solicite novos equipamentos ou consulte os EPIs disponíveis para sua função.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- Cards resumo -->
+
+    <div class="row g-4">
+
+
+        <div class="col-lg-4">
+
+
+            <div class="card dashboard-card">
+
+                <div class="card-body d-flex justify-content-between align-items-center">
+
+
+                    <div>
+
+                        <small class="text-secondary">
+                            Solicitações Pendentes
+                        </small>
+
+                        <h2 class="fw-bold">
+                            1
+                        </h2>
+
+                    </div>
+
+
+                    <div class="icon-box bg-warning text-white">
+
+                        <i class="bi bi-clock-history"></i>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="col-lg-4">
+
+
+            <div class="card dashboard-card">
+
+                <div class="card-body d-flex justify-content-between align-items-center">
+
+
+                    <div>
+
+                        <small class="text-secondary">
+                            EPIs Disponíveis
+                        </small>
+
+                        <h2 class="fw-bold">
+                            12
+                        </h2>
+
+                    </div>
+
+
+                    <div class="icon-box bg-primary text-white">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="col-lg-4">
+
+
+            <div class="card dashboard-card">
+
+                <div class="card-body d-flex justify-content-between align-items-center">
+
+
+                    <div>
+
+                        <small class="text-secondary">
+                            Última Solicitação
+                        </small>
+
+                        <h5 class="fw-bold">
+                            05/07/2026
+                        </h5>
+
+                    </div>
+
+
+                    <div class="icon-box bg-success text-white">
+
+                        <i class="bi bi-check-circle"></i>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+    <div class="row mt-4 g-4">
+
+
+        <!-- Área principal -->
+
+
+        <div class="col-lg-8">
+
+
+
+            <!-- Solicitação -->
+
+
+            <div class="card dashboard-card mb-4">
+
+
+                <div class="card-body">
+
+
+                    <h5 class="fw-bold mb-4">
+
+                        Nova Solicitação
+
+                    </h5>
+
+
+
+                    <div class="row g-3">
+
+
+                        <div class="col-md-6">
+
+
+                            <label class="form-label">
+                                EPI desejado
+                            </label>
+
+
+                            <select class="form-select">
+
+                                <option>
+                                    Selecione um EPI
+                                </option>
+
+                                <option>
+                                    Capacete de Segurança
+                                </option>
+
+                                <option>
+                                    Luva de Raspa
+                                </option>
+
+                                <option>
+                                    Óculos de Proteção
+                                </option>
+
+                                <option>
+                                    Protetor Auricular
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+
+                        <div class="col-md-6">
+
+
+                            <label class="form-label">
+                                Motivo da solicitação
+                            </label>
+
+
+                            <select class="form-select">
+
+
+                                <option>
+                                    Novo equipamento
+                                </option>
+
+                                <option>
+                                    Troca por desgaste
+                                </option>
+
+                                <option>
+                                    Perda do equipamento
+                                </option>
+
+                                <option>
+                                    Danificado
+                                </option>
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+                        <div class="col-12">
+
+
+                            <label class="form-label">
+
+                                Observação
+
+                            </label>
+
+
+                            <textarea class="form-control"
+                            rows="3"
+                            placeholder="Descreva o motivo da solicitação..."></textarea>
+
+
+                        </div>
+
+
+
+                        <div class="col-12">
+
+
+                            <button class="btn btn-primary">
+
+                                <i class="bi bi-send"></i>
+                                Enviar Solicitação
+
+                            </button>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+            <!-- EPIs disponíveis -->
+
+
+            <div class="card dashboard-card">
+
+
+                <div class="card-body">
+
+
+                    <h5 class="fw-bold mb-4">
+
+                        EPIs Disponíveis
+
+                    </h5>
+
+
+
+
+                    <div class="row g-3">
+
+
+                        <div class="col-md-6">
+
+
+                            <div class="epi-card p-3">
+
+
+                                <div class="d-flex align-items-center gap-3">
+
+
+                                    <div class="epi-icon">
+
+                                        <i class="bi bi-shield"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h6 class="fw-bold mb-1">
+                                            Capacete
+                                        </h6>
+
+                                        <small class="text-secondary">
+                                            Proteção contra impactos
+                                        </small>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="col-md-6">
+
+
+                            <div class="epi-card p-3">
+
+
+                                <div class="d-flex align-items-center gap-3">
+
+
+                                    <div class="epi-icon">
+
+                                        <i class="bi bi-hand-index"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h6 class="fw-bold mb-1">
+                                            Luva de Raspa
+                                        </h6>
+
+                                        <small class="text-secondary">
+                                            Proteção das mãos
+                                        </small>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+
+                        <div class="col-md-6">
+
+
+                            <div class="epi-card p-3">
+
+
+                                <div class="d-flex align-items-center gap-3">
+
+
+                                    <div class="epi-icon">
+
+                                        <i class="bi bi-eyeglasses"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h6 class="fw-bold mb-1">
+                                            Óculos
+                                        </h6>
+
+                                        <small class="text-secondary">
+                                            Proteção visual
+                                        </small>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <div class="col-md-6">
+
+
+                            <div class="epi-card p-3">
+
+
+                                <div class="d-flex align-items-center gap-3">
+
+
+                                    <div class="epi-icon">
+
+                                        <i class="bi bi-volume-mute"></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h6 class="fw-bold mb-1">
+                                            Protetor Auricular
+                                        </h6>
+
+                                        <small class="text-secondary">
+                                            Proteção auditiva
+                                        </small>
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- Lateral -->
+
+
+        <div class="col-lg-4">
+
+
+
+            <!-- Status -->
+
+
+            <div class="card dashboard-card mb-4">
+
+
+                <div class="card-body">
+
+
+                    <h5 class="fw-bold mb-3">
+
+                        Minhas Solicitações
+
+                    </h5>
+
+
+                    <div class="border rounded p-3 mb-3">
+
+
+                        <strong>
+                            Capacete
+                        </strong>
+
+
+                        <br>
+
+
+                        <span class="badge bg-warning mt-2">
+
+                            Em análise
+
+                        </span>
+
+
+                        <small class="d-block text-secondary mt-2">
+
+                            Solicitado em 05/07/2026
+
+                        </small>
+
+
+                    </div>
+
+
+
+                    <div class="border rounded p-3">
+
+
+                        <strong>
+                            Luva de Raspa
+                        </strong>
+
+
+                        <br>
+
+
+                        <span class="badge bg-success mt-2">
+
+                            Aprovado
+
+                        </span>
+
+
+                        <small class="d-block text-secondary mt-2">
+
+                            Entrega prevista: 10/07/2026
+
+                        </small>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+            <!-- Informações -->
+
+
+            <div class="card dashboard-card">
+
+
+                <div class="card-body">
+
+
+                    <h5 class="fw-bold mb-3">
+
+                        Informações
+
+                    </h5>
+
+
+                    <p class="text-secondary">
+
+                        As solicitações serão avaliadas pelo responsável pelos EPIs da empresa.
+
+                    </p>
+
+
+                    <div class="d-grid">
+
+
+                        <button class="btn btn-outline-primary">
+
+                            <i class="bi bi-box"></i>
+
+                            Ver Meus EPIs
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>

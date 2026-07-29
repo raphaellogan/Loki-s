@@ -1,0 +1,1073 @@
+<style>
+    :root {
+        --func-bg: #eef4f8;
+        --func-card: #fff;
+        --func-text: #1f2937;
+        --func-muted: #64748b;
+        --func-border: #e5eaf0;
+        --func-primary: #2563eb;
+    }
+
+    body {
+        background: var(--func-bg);
+        color: var(--func-text);
+    }
+
+    .funcionarios-page {
+        width: 100%;
+        max-width: 1600px;
+        margin-inline: auto;
+        padding: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .page-title {
+        margin: 0 0 .3rem;
+        color: var(--func-text);
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 750;
+    }
+
+    .page-subtitle {
+        margin: 0;
+        color: var(--func-muted);
+    }
+
+    .func-card {
+        border: 1px solid rgba(229, 234, 240, .9);
+        border-radius: 18px;
+        background: var(--func-card);
+        box-shadow: 0 8px 22px rgba(16, 24, 40, .055);
+    }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(150px, 1fr)) auto;
+        gap: .75rem;
+        align-items: end;
+    }
+
+    .filter-label {
+        display: block;
+        margin-bottom: .35rem;
+        color: var(--func-muted);
+        font-size: .78rem;
+        font-weight: 650;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-box i {
+        position: absolute;
+        top: 50%;
+        left: .9rem;
+        z-index: 2;
+        color: #94a3b8;
+        transform: translateY(-50%);
+    }
+
+    .search-box .form-control {
+        padding-left: 2.5rem;
+    }
+
+    .sector-tabs {
+        display: flex;
+        gap: .55rem;
+        margin: 0;
+        padding: .15rem 0 .35rem;
+        overflow-x: auto;
+        list-style: none;
+        scrollbar-width: thin;
+    }
+
+    .sector-button {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        min-height: 38px;
+        padding: .5rem .85rem;
+        border: 1px solid var(--func-border);
+        border-radius: 999px;
+        background: #fff;
+        color: #475569;
+        font-size: .86rem;
+        white-space: nowrap;
+        transition: .18s ease;
+    }
+
+    .sector-button:hover,
+    .sector-button.active {
+        border-color: var(--func-primary);
+        background: var(--func-primary);
+        color: #fff;
+    }
+
+    .sector-count {
+        min-width: 22px;
+        padding: .08rem .35rem;
+        border-radius: 999px;
+        background: rgba(100, 116, 139, .12);
+        font-size: .72rem;
+        text-align: center;
+    }
+
+    .sector-button.active .sector-count {
+        background: rgba(255, 255, 255, .2);
+    }
+
+    .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .list-title {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .results-count {
+        color: var(--func-muted);
+        font-size: .85rem;
+    }
+
+    .employees-table {
+        min-width: 930px;
+        margin: 0;
+    }
+
+    .employees-table th {
+        border-bottom-color: var(--func-border);
+        color: var(--func-muted);
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: .025em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .employees-table td {
+        border-bottom-color: #eef1f4;
+        vertical-align: middle;
+    }
+
+    .employees-table tbody tr {
+        transition: background .18s ease;
+    }
+
+    .employees-table tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    .employee-identity {
+        display: flex;
+        align-items: center;
+        gap: .7rem;
+        min-width: 220px;
+    }
+
+    .avatar {
+        display: grid;
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border-radius: 13px;
+        background: #eaf1ff;
+        color: var(--func-primary);
+        font-weight: 750;
+    }
+
+    .employee-identity strong,
+    .employee-identity small {
+        display: block;
+    }
+
+    .employee-identity small {
+        max-width: 230px;
+        overflow: hidden;
+        color: var(--func-muted);
+        font-size: .78rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .badge {
+        padding: .48rem .68rem;
+        font-weight: 600;
+    }
+
+    .epi-count {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        font-weight: 650;
+    }
+
+    .situation-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .35rem;
+        min-width: 160px;
+    }
+
+    .empty-state,
+    .loading-state {
+        padding: 3rem 1rem;
+        color: var(--func-muted);
+        text-align: center;
+    }
+
+    .empty-state i,
+    .loading-state .spinner-border {
+        display: block;
+        margin: 0 auto .75rem;
+    }
+
+    .empty-state i {
+        color: #94a3b8;
+        font-size: 2rem;
+    }
+
+    .error-box {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: .85rem 1rem;
+        border: 1px solid #fecaca;
+        border-radius: 13px;
+        background: #fff1f2;
+        color: #991b1b;
+    }
+
+    .error-box.visible {
+        display: flex;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin: 0;
+    }
+
+    .pagination .page-link {
+        min-width: 38px;
+        margin: 0;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .8rem;
+    }
+
+    .detail-item {
+        min-width: 0;
+        padding: .85rem;
+        border-radius: 13px;
+        background: #f8fafc;
+    }
+
+    .detail-item.full {
+        grid-column: 1 / -1;
+    }
+
+    .detail-item span {
+        display: block;
+        margin-bottom: .2rem;
+        color: var(--func-muted);
+        font-size: .76rem;
+        font-weight: 600;
+    }
+
+    .detail-item strong {
+        display: block;
+        overflow-wrap: anywhere;
+        font-size: .92rem;
+    }
+
+    .modal-employee-header {
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--func-border);
+        border-radius: 14px;
+    }
+
+    .modal-employee-header .avatar {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+    }
+
+    .modal-employee-header h3 {
+        margin: 0 0 .15rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .modal-employee-header p {
+        margin: 0;
+        color: var(--func-muted);
+        font-size: .85rem;
+    }
+
+    @media (max-width: 1199.98px) {
+        .filter-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .filter-search {
+            grid-column: 1 / -1;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: .5rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .funcionarios-page {
+            padding: .9rem;
+        }
+
+        .filter-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-search {
+            grid-column: auto;
+        }
+
+        .filter-actions .btn {
+            flex: 1;
+        }
+
+        .list-header {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: .3rem;
+        }
+
+        .error-box {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .detail-item.full {
+            grid-column: auto;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .table-responsive {
+            overflow: visible;
+        }
+
+        .employees-table {
+            min-width: 0;
+        }
+
+        .employees-table thead {
+            display: none;
+        }
+
+        .employees-table,
+        .employees-table tbody,
+        .employees-table tr,
+        .employees-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .employees-table tr {
+            margin-bottom: .8rem;
+            padding: .9rem;
+            border: 1px solid var(--func-border);
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .employees-table tr:last-child {
+            margin-bottom: 0;
+        }
+
+        .employees-table td {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: .48rem 0;
+            border: 0;
+            text-align: right;
+        }
+
+        .employees-table td::before {
+            content: attr(data-label);
+            color: var(--func-muted);
+            font-size: .72rem;
+            font-weight: 700;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .employees-table td:first-child {
+            display: block;
+            padding-top: 0;
+            text-align: left;
+        }
+
+        .employees-table td:first-child::before {
+            display: none;
+        }
+
+        .situation-list {
+            justify-content: flex-end;
+            min-width: 0;
+        }
+
+        .employees-table td:last-child .btn {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .sector-button,
+        .employees-table tbody tr {
+            transition: none;
+        }
+    }
+</style>
+
+<main class="funcionarios-page">
+    <header class="mb-4">
+        <h1 class="page-title">Todos os funcionários</h1>
+        <p class="page-subtitle">
+            Consulte colaboradores, EPIs, pendências e situação das entregas.
+        </p>
+    </header>
+
+    <div class="error-box" id="funcionarios-completo-erro" role="alert">
+        <span>
+            <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>
+            Não foi possível carregar os funcionários.
+        </span>
+        <button class="btn btn-sm btn-outline-danger" id="botao-recarregar" type="button">
+            Tentar novamente
+        </button>
+    </div>
+
+    <section class="func-card p-3 p-lg-4 mb-3 mb-lg-4" aria-label="Filtros">
+        <form class="filter-grid" id="form-filtros">
+            <div class="filter-search">
+                <label class="filter-label" for="pesquisa-funcionario">Pesquisar</label>
+                <div class="search-box">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <input
+                        class="form-control"
+                        id="pesquisa-funcionario"
+                        type="search"
+                        placeholder="Nome, e-mail, CPF, telefone, cargo..."
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+
+            <div>
+                <label class="filter-label" for="filtro-cargo">Cargo</label>
+                <select class="form-select" id="filtro-cargo">
+                    <option value="">Todos os cargos</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="filter-label" for="filtro-status">Status do usuário</label>
+                <select class="form-select" id="filtro-status">
+                    <option value="">Todos</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="filter-label" for="filtro-entregas">Situação das entregas</label>
+                <select class="form-select" id="filtro-entregas">
+                    <option value="">Todas</option>
+                    <option value="regular">Regular</option>
+                    <option value="irregular">Irregular</option>
+                    <option value="pendente">Com pendência</option>
+                    <option value="troca">Troca próxima</option>
+                    <option value="sem_epi">Sem EPI</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search me-1" aria-hidden="true"></i>
+                    Pesquisar
+                </button>
+                <button class="btn btn-outline-secondary" id="limpar-filtros" type="button">
+                    Limpar
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <nav class="mb-3 mb-lg-4" aria-label="Filtrar por setor">
+        <ul class="sector-tabs" id="setores-lista"></ul>
+    </nav>
+
+    <section class="func-card p-3 p-lg-4">
+        <div class="list-header">
+            <h2 class="list-title">Funcionários cadastrados</h2>
+            <span class="results-count" id="quantidade-resultados">Carregando...</span>
+        </div>
+
+        <div class="loading-state" id="funcionarios-loading">
+            <span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span>
+            Carregando funcionários...
+        </div>
+
+        <div class="table-responsive d-none" id="tabela-container">
+            <table class="table employees-table align-middle">
+                <thead>
+                    <tr>
+                        <th>Funcionário</th>
+                        <th>Setor / cargo</th>
+                        <th>EPIs</th>
+                        <th>Situação</th>
+                        <th>Entregas</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="funcionarios-tabela"></tbody>
+            </table>
+        </div>
+
+        <div class="empty-state d-none" id="funcionarios-vazio">
+            <i class="bi bi-people"></i>
+            <strong class="d-block mb-1">Nenhum funcionário encontrado</strong>
+            <span>Altere ou limpe os filtros para tentar novamente.</span>
+        </div>
+    </section>
+
+    <nav class="d-flex justify-content-end mt-3 mt-lg-4" aria-label="Paginação dos funcionários">
+        <ul class="pagination" id="funcionarios-paginacao"></ul>
+    </nav>
+</main>
+
+<div class="modal fade" id="modal-funcionario" tabindex="-1" aria-labelledby="modal-funcionario-titulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="modal-funcionario-titulo">Detalhes do funcionário</h2>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detalhes-funcionario"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (() => {
+        const endpoint = "/almoxarife/funcionarios-completo/dados";
+        const porPagina = 8;
+
+        const estado = {
+            funcionarios: [],
+            filtrados: [],
+            setor: "",
+            pagina: 1
+        };
+
+        const elementos = {
+            erro: document.getElementById("funcionarios-completo-erro"),
+            loading: document.getElementById("funcionarios-loading"),
+            tabelaContainer: document.getElementById("tabela-container"),
+            tabela: document.getElementById("funcionarios-tabela"),
+            vazio: document.getElementById("funcionarios-vazio"),
+            quantidade: document.getElementById("quantidade-resultados"),
+            paginacao: document.getElementById("funcionarios-paginacao"),
+            setores: document.getElementById("setores-lista"),
+            pesquisa: document.getElementById("pesquisa-funcionario"),
+            cargo: document.getElementById("filtro-cargo"),
+            status: document.getElementById("filtro-status"),
+            entregas: document.getElementById("filtro-entregas"),
+            detalhes: document.getElementById("detalhes-funcionario")
+        };
+
+        const texto = (valor, padrao = "Não informado") =>
+            valor === null || valor === undefined || valor === "" ? padrao : String(valor);
+
+        const normalizar = valor => texto(valor, "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+
+        const numero = valor => {
+            const resultado = Number(valor);
+            return Number.isFinite(resultado) && resultado >= 0 ? resultado : 0;
+        };
+
+        const escaparHtml = valor => texto(valor)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+
+        const iniciais = nome => texto(nome, "?")
+            .trim()
+            .split(/\s+/)
+            .slice(0, 2)
+            .map(parte => parte.charAt(0))
+            .join("")
+            .toUpperCase();
+
+        const formatarCpf = cpf => {
+            const digitos = texto(cpf, "").replace(/\D/g, "").slice(0, 11);
+            return digitos.length === 11
+                ? digitos.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+                : texto(cpf);
+        };
+
+        const formatarTelefone = telefone => {
+            const digitos = texto(telefone, "").replace(/\D/g, "").slice(0, 11);
+            if (digitos.length === 11) {
+                return digitos.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+            }
+            if (digitos.length === 10) {
+                return digitos.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+            }
+            return texto(telefone);
+        };
+
+        function criarElemento(tag, classes, conteudo) {
+            const elemento = document.createElement(tag);
+            if (classes) elemento.className = classes;
+            if (conteudo !== undefined) elemento.textContent = conteudo;
+            return elemento;
+        }
+
+        function criarCelula(rotulo, conteudo) {
+            const td = document.createElement("td");
+            td.dataset.label = rotulo;
+            if (conteudo instanceof Node) td.appendChild(conteudo);
+            else td.textContent = texto(conteudo);
+            return td;
+        }
+
+        function obterSituacao(funcionario) {
+            const situacoes = [];
+
+            if (numero(funcionario.quantidade_epis) === 0) {
+                situacoes.push({ texto: "Sem EPI", classe: "bg-danger" });
+            }
+            if (funcionario.tem_entregas_pendentes === true) {
+                situacoes.push({ texto: "Entrega pendente", classe: "bg-danger" });
+            }
+            if (funcionario.tem_trocas_proximas === true) {
+                const quantidade = numero(funcionario.quantidade_trocas_proximas);
+                situacoes.push({
+                    texto: quantidade > 1 ? `${quantidade} trocas próximas` : "Troca próxima",
+                    classe: "bg-warning text-dark"
+                });
+            }
+            if (situacoes.length === 0) {
+                situacoes.push({ texto: "Nenhuma pendência", classe: "bg-light text-success border" });
+            }
+
+            return situacoes;
+        }
+
+        function criarIdentidade(funcionario) {
+            const wrapper = criarElemento("div", "employee-identity");
+            const avatar = criarElemento("span", "avatar", iniciais(funcionario.nome));
+            const dados = document.createElement("div");
+            const nome = criarElemento("strong", "", texto(funcionario.nome));
+            const email = criarElemento("small", "", texto(funcionario.email));
+            dados.append(nome, email);
+            wrapper.append(avatar, dados);
+            return wrapper;
+        }
+
+        function criarSetorCargo(funcionario) {
+            const wrapper = document.createElement("div");
+            wrapper.append(
+                criarElemento("strong", "d-block", texto(funcionario.setor)),
+                criarElemento("small", "text-secondary", texto(funcionario.cargo))
+            );
+            return wrapper;
+        }
+
+        function criarEpis(funcionario) {
+            const wrapper = criarElemento("span", "epi-count");
+            wrapper.innerHTML = `<i class="bi bi-shield-check text-primary" aria-hidden="true"></i>
+                ${numero(funcionario.quantidade_epis)}`;
+            return wrapper;
+        }
+
+        function criarSituacoes(funcionario) {
+            const wrapper = criarElemento("div", "situation-list");
+            obterSituacao(funcionario).forEach(item => {
+                wrapper.appendChild(criarElemento("span", `badge ${item.classe}`, item.texto));
+            });
+            return wrapper;
+        }
+
+        function criarStatusEntregas(funcionario) {
+            const regular = normalizar(funcionario.status_entregas) === "regular";
+            return criarElemento(
+                "span",
+                `badge ${regular ? "bg-success" : "bg-danger"}`,
+                regular ? "Regular" : "Irregular"
+            );
+        }
+
+        function criarStatusUsuario(funcionario) {
+            const ativo = normalizar(funcionario.status) === "ativo";
+            return criarElemento(
+                "span",
+                `badge ${ativo ? "bg-primary" : "bg-secondary"}`,
+                ativo ? "Ativo" : "Inativo"
+            );
+        }
+
+        function criarAcoes(funcionario) {
+            const botao = criarElemento("button", "btn btn-outline-primary btn-sm", "Ver detalhes");
+            botao.type = "button";
+            botao.addEventListener("click", () => abrirDetalhes(funcionario));
+            return botao;
+        }
+
+        function renderizarTabela() {
+            elementos.tabela.replaceChildren();
+
+            const inicio = (estado.pagina - 1) * porPagina;
+            const pagina = estado.filtrados.slice(inicio, inicio + porPagina);
+
+            elementos.loading.classList.add("d-none");
+            elementos.quantidade.textContent =
+                `${estado.filtrados.length} de ${estado.funcionarios.length} funcionário(s)`;
+
+            if (pagina.length === 0) {
+                elementos.tabelaContainer.classList.add("d-none");
+                elementos.vazio.classList.remove("d-none");
+                elementos.paginacao.replaceChildren();
+                return;
+            }
+
+            elementos.vazio.classList.add("d-none");
+            elementos.tabelaContainer.classList.remove("d-none");
+
+            pagina.forEach(funcionario => {
+                const tr = document.createElement("tr");
+                const entregas = document.createElement("div");
+                entregas.append(
+                    criarStatusEntregas(funcionario),
+                    criarElemento(
+                        "small",
+                        "d-block text-secondary mt-1",
+                        funcionario.tem_entregas_pendentes ? "Com pendência" : "Sem pendência"
+                    )
+                );
+
+                tr.append(
+                    criarCelula("Funcionário", criarIdentidade(funcionario)),
+                    criarCelula("Setor / cargo", criarSetorCargo(funcionario)),
+                    criarCelula("EPIs", criarEpis(funcionario)),
+                    criarCelula("Situação", criarSituacoes(funcionario)),
+                    criarCelula("Entregas", entregas),
+                    criarCelula("Status", criarStatusUsuario(funcionario)),
+                    criarCelula("Ações", criarAcoes(funcionario))
+                );
+                elementos.tabela.appendChild(tr);
+            });
+
+            renderizarPaginacao();
+        }
+
+        function criarBotaoPagina(rotulo, pagina, desabilitado = false, ativo = false, ariaLabel = "") {
+            const li = criarElemento(
+                "li",
+                `page-item${desabilitado ? " disabled" : ""}${ativo ? " active" : ""}`
+            );
+            const botao = criarElemento("button", "page-link", rotulo);
+            botao.type = "button";
+            if (ariaLabel) botao.setAttribute("aria-label", ariaLabel);
+            if (ativo) botao.setAttribute("aria-current", "page");
+            botao.disabled = desabilitado;
+            botao.addEventListener("click", () => {
+                estado.pagina = pagina;
+                renderizarTabela();
+                document.querySelector(".func-card:last-of-type")?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            });
+            li.appendChild(botao);
+            return li;
+        }
+
+        function renderizarPaginacao() {
+            elementos.paginacao.replaceChildren();
+            const totalPaginas = Math.ceil(estado.filtrados.length / porPagina);
+
+            if (totalPaginas <= 1) return;
+
+            elementos.paginacao.appendChild(
+                criarBotaoPagina("‹", estado.pagina - 1, estado.pagina === 1, false, "Página anterior")
+            );
+
+            const inicio = Math.max(1, estado.pagina - 2);
+            const fim = Math.min(totalPaginas, inicio + 4);
+
+            for (let pagina = Math.max(1, fim - 4); pagina <= fim; pagina++) {
+                elementos.paginacao.appendChild(
+                    criarBotaoPagina(String(pagina), pagina, false, pagina === estado.pagina)
+                );
+            }
+
+            elementos.paginacao.appendChild(
+                criarBotaoPagina("›", estado.pagina + 1, estado.pagina === totalPaginas, false, "Próxima página")
+            );
+        }
+
+        function aplicarFiltros() {
+            const busca = normalizar(elementos.pesquisa.value);
+            const cargo = normalizar(elementos.cargo.value);
+            const status = normalizar(elementos.status.value);
+            const filtroEntregas = elementos.entregas.value;
+
+            estado.filtrados = estado.funcionarios.filter(funcionario => {
+                const camposBusca = [
+                    funcionario.nome,
+                    funcionario.email,
+                    funcionario.cpf,
+                    funcionario.telefone,
+                    funcionario.setor,
+                    funcionario.cargo,
+                    funcionario.id
+                ].map(normalizar).join(" ");
+
+                const correspondeBusca = !busca || camposBusca.includes(busca);
+                const correspondeSetor =
+                    !estado.setor || normalizar(funcionario.setor) === normalizar(estado.setor);
+                const correspondeCargo = !cargo || normalizar(funcionario.cargo) === cargo;
+                const correspondeStatus = !status || normalizar(funcionario.status) === status;
+
+                let correspondeEntregas = true;
+                if (filtroEntregas === "regular") {
+                    correspondeEntregas = normalizar(funcionario.status_entregas) === "regular";
+                } else if (filtroEntregas === "irregular") {
+                    correspondeEntregas = normalizar(funcionario.status_entregas) !== "regular";
+                } else if (filtroEntregas === "pendente") {
+                    correspondeEntregas = funcionario.tem_entregas_pendentes === true;
+                } else if (filtroEntregas === "troca") {
+                    correspondeEntregas = funcionario.tem_trocas_proximas === true;
+                } else if (filtroEntregas === "sem_epi") {
+                    correspondeEntregas = numero(funcionario.quantidade_epis) === 0;
+                }
+
+                return correspondeBusca && correspondeSetor && correspondeCargo &&
+                    correspondeStatus && correspondeEntregas;
+            });
+
+            estado.pagina = 1;
+            renderizarTabela();
+        }
+
+        function preencherCargos() {
+            const cargos = [...new Set(
+                estado.funcionarios.map(item => texto(item.cargo, "")).filter(Boolean)
+            )].sort((a, b) => a.localeCompare(b, "pt-BR"));
+
+            elementos.cargo.querySelectorAll("option:not(:first-child)").forEach(option => option.remove());
+            cargos.forEach(cargo => {
+                const option = document.createElement("option");
+                option.value = cargo;
+                option.textContent = cargo;
+                elementos.cargo.appendChild(option);
+            });
+        }
+
+        function renderizarSetores() {
+            elementos.setores.replaceChildren();
+
+            const contagem = estado.funcionarios.reduce((resultado, funcionario) => {
+                const setor = texto(funcionario.setor);
+                resultado[setor] = (resultado[setor] || 0) + 1;
+                return resultado;
+            }, {});
+
+            const setores = Object.keys(contagem).sort((a, b) => a.localeCompare(b, "pt-BR"));
+            const opcoes = [{ nome: "", rotulo: "Todos", quantidade: estado.funcionarios.length }]
+                .concat(setores.map(setor => ({
+                    nome: setor,
+                    rotulo: setor,
+                    quantidade: contagem[setor]
+                })));
+
+            opcoes.forEach(opcao => {
+                const li = document.createElement("li");
+                const botao = document.createElement("button");
+                botao.type = "button";
+                botao.className = `sector-button${estado.setor === opcao.nome ? " active" : ""}`;
+                botao.innerHTML = `${escaparHtml(opcao.rotulo)}
+                    <span class="sector-count">${opcao.quantidade}</span>`;
+                botao.addEventListener("click", () => {
+                    estado.setor = opcao.nome;
+                    renderizarSetores();
+                    aplicarFiltros();
+                });
+                li.appendChild(botao);
+                elementos.setores.appendChild(li);
+            });
+        }
+
+        function detalhe(rotulo, valor, classe = "") {
+            return `<div class="detail-item ${classe}">
+                <span>${escaparHtml(rotulo)}</span>
+                <strong>${escaparHtml(texto(valor))}</strong>
+            </div>`;
+        }
+
+        function abrirDetalhes(funcionario) {
+            const statusEntregas = normalizar(funcionario.status_entregas) === "regular"
+                ? "Regular"
+                : "Irregular";
+
+            elementos.detalhes.innerHTML = `
+                <div class="modal-employee-header">
+                    <span class="avatar">${escaparHtml(iniciais(funcionario.nome))}</span>
+                    <div>
+                        <h3>${escaparHtml(texto(funcionario.nome))}</h3>
+                        <p>${escaparHtml(texto(funcionario.cargo))} · ${escaparHtml(texto(funcionario.setor))}</p>
+                    </div>
+                </div>
+                <div class="details-grid">
+                    ${detalhe("ID", funcionario.id)}
+                    ${detalhe("Perfil", funcionario.perfil)}
+                    ${detalhe("E-mail", funcionario.email, "full")}
+                    ${detalhe("CPF", formatarCpf(funcionario.cpf))}
+                    ${detalhe("Telefone", formatarTelefone(funcionario.telefone))}
+                    ${detalhe("Setor", funcionario.setor)}
+                    ${detalhe("Cargo", funcionario.cargo)}
+                    ${detalhe("Status do usuário", funcionario.status)}
+                    ${detalhe("Quantidade de EPIs", numero(funcionario.quantidade_epis))}
+                    ${detalhe(
+                        "Entregas pendentes",
+                        funcionario.tem_entregas_pendentes ? "Sim" : "Não"
+                    )}
+                    ${detalhe("Status das entregas", statusEntregas)}
+                    ${detalhe(
+                        "Trocas próximas",
+                        funcionario.tem_trocas_proximas
+                            ? `Sim (${numero(funcionario.quantidade_trocas_proximas)})`
+                            : "Não"
+                    )}
+                </div>
+            `;
+
+            if (typeof bootstrap === "undefined" || !bootstrap.Modal) {
+                console.error("O Bootstrap Bundle é necessário para abrir o modal.");
+                return;
+            }
+
+            bootstrap.Modal.getOrCreateInstance(
+                document.getElementById("modal-funcionario")
+            ).show();
+        }
+
+        function limparFiltros() {
+            elementos.pesquisa.value = "";
+            elementos.cargo.value = "";
+            elementos.status.value = "";
+            elementos.entregas.value = "";
+            estado.setor = "";
+            renderizarSetores();
+            aplicarFiltros();
+        }
+
+        async function carregarFuncionarios() {
+            elementos.erro.classList.remove("visible");
+            elementos.loading.classList.remove("d-none");
+            elementos.tabelaContainer.classList.add("d-none");
+            elementos.vazio.classList.add("d-none");
+            elementos.quantidade.textContent = "Carregando...";
+            elementos.paginacao.replaceChildren();
+
+            try {
+                const resposta = await fetch(endpoint, {
+                    method: "GET",
+                    credentials: "same-origin",
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro HTTP ${resposta.status}`);
+                }
+
+                const dados = await resposta.json();
+                const lista = Array.isArray(dados) ? dados : dados.funcionarios;
+
+                if (!Array.isArray(lista)) {
+                    throw new Error("A resposta não contém uma lista de funcionários.");
+                }
+
+                estado.funcionarios = lista;
+                estado.filtrados = [...lista];
+                estado.pagina = 1;
+                estado.setor = "";
+
+                preencherCargos();
+                renderizarSetores();
+                renderizarTabela();
+            } catch (erro) {
+                console.error("Erro ao carregar funcionários:", erro);
+                elementos.loading.classList.add("d-none");
+                elementos.quantidade.textContent = "Dados indisponíveis";
+                elementos.erro.classList.add("visible");
+            }
+        }
+
+        document.getElementById("form-filtros").addEventListener("submit", evento => {
+            evento.preventDefault();
+            aplicarFiltros();
+        });
+
+        elementos.cargo.addEventListener("change", aplicarFiltros);
+        elementos.status.addEventListener("change", aplicarFiltros);
+        elementos.entregas.addEventListener("change", aplicarFiltros);
+        elementos.pesquisa.addEventListener("input", aplicarFiltros);
+        document.getElementById("limpar-filtros").addEventListener("click", limparFiltros);
+        document.getElementById("botao-recarregar").addEventListener("click", carregarFuncionarios);
+
+        carregarFuncionarios();
+    })();
+</script>

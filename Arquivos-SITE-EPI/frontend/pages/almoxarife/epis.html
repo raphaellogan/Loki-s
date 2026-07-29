@@ -1,0 +1,1077 @@
+<style>
+    :root {
+        --epi-bg: #eef4f8;
+        --epi-card: #fff;
+        --epi-text: #1f2937;
+        --epi-muted: #64748b;
+        --epi-border: #e5eaf0;
+        --epi-primary: #2563eb;
+        --epi-success: #16a34a;
+        --epi-warning: #d97706;
+        --epi-danger: #dc2626;
+        --epi-info: #0891b2;
+        --epi-purple: #7c3aed;
+    }
+
+    body {
+        background: var(--epi-bg);
+        color: var(--epi-text);
+    }
+
+    .epis-page {
+        width: 100%;
+        max-width: 1600px;
+        margin-inline: auto;
+        padding: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+        margin: 0 0 .3rem;
+        color: var(--epi-text);
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 750;
+    }
+
+    .page-subtitle {
+        margin: 0;
+        color: var(--epi-muted);
+    }
+
+    .dashboard-card {
+        border: 1px solid rgba(229, 234, 240, .9);
+        border-radius: 18px;
+        background: var(--epi-card);
+        box-shadow: 0 8px 22px rgba(16, 24, 40, .055);
+    }
+
+    .metric-card {
+        position: relative;
+        height: 100%;
+        min-width: 0;
+        padding: 1.15rem;
+        overflow: hidden;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(16, 24, 40, .085);
+    }
+
+    .metric-card::after {
+        content: "";
+        position: absolute;
+        inset: 0 0 0 auto;
+        width: 5px;
+        background: var(--metric-color);
+    }
+
+    .metric-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .75rem;
+    }
+
+    .metric-label {
+        display: block;
+        margin-bottom: .4rem;
+        color: var(--epi-muted);
+        font-size: .82rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .metric-value {
+        margin: 0;
+        color: var(--metric-color);
+        font-size: clamp(1.65rem, 3vw, 2.15rem);
+        font-weight: 750;
+        line-height: 1;
+    }
+
+    .icon-box {
+        display: grid;
+        flex: 0 0 52px;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border-radius: 15px;
+        background: var(--metric-soft);
+        color: var(--metric-color);
+        font-size: 1.35rem;
+    }
+
+    .metric-primary { --metric-color: var(--epi-primary); --metric-soft: #eaf1ff; }
+    .metric-success { --metric-color: var(--epi-success); --metric-soft: #eaf8ef; }
+    .metric-info { --metric-color: var(--epi-info); --metric-soft: #e8f8fc; }
+    .metric-danger { --metric-color: var(--epi-danger); --metric-soft: #ffeded; }
+    .metric-purple { --metric-color: var(--epi-purple); --metric-soft: #f2edff; }
+    .metric-warning { --metric-color: var(--epi-warning); --metric-soft: #fff5df; }
+
+    .filter-grid {
+        display: grid;
+        grid-template-columns: minmax(240px, 2fr) minmax(180px, 1fr) minmax(160px, .8fr) auto;
+        gap: .75rem;
+        align-items: end;
+    }
+
+    .filter-label {
+        display: block;
+        margin-bottom: .35rem;
+        color: var(--epi-muted);
+        font-size: .78rem;
+        font-weight: 650;
+    }
+
+    .search-box {
+        position: relative;
+    }
+
+    .search-box i {
+        position: absolute;
+        top: 50%;
+        left: .9rem;
+        z-index: 2;
+        color: #94a3b8;
+        transform: translateY(-50%);
+    }
+
+    .search-box .form-control {
+        padding-left: 2.5rem;
+    }
+
+    .list-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .list-title {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .results-count {
+        color: var(--epi-muted);
+        font-size: .85rem;
+    }
+
+    .stock-table {
+        min-width: 900px;
+        margin: 0;
+    }
+
+    .stock-table th {
+        border-bottom-color: var(--epi-border);
+        color: var(--epi-muted);
+        font-size: .76rem;
+        font-weight: 700;
+        letter-spacing: .025em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .stock-table td {
+        border-bottom-color: #eef1f4;
+        vertical-align: middle;
+    }
+
+    .stock-table tbody tr {
+        transition: background .18s ease;
+    }
+
+    .stock-table tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    .epi-identity {
+        min-width: 230px;
+    }
+
+    .epi-identity strong,
+    .epi-identity small {
+        display: block;
+    }
+
+    .epi-identity small {
+        max-width: 280px;
+        overflow: hidden;
+        color: var(--epi-muted);
+        font-size: .78rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .progress-wrapper {
+        min-width: 145px;
+    }
+
+    .progress {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e8edf3;
+    }
+
+    .progress-bar {
+        border-radius: inherit;
+    }
+
+    .progress-caption {
+        display: block;
+        margin-top: .3rem;
+        color: var(--epi-muted);
+        font-size: .72rem;
+    }
+
+    .badge {
+        padding: .48rem .68rem;
+        font-weight: 600;
+    }
+
+    .empty-state,
+    .loading-state {
+        padding: 3rem 1rem;
+        color: var(--epi-muted);
+        text-align: center;
+    }
+
+    .empty-state i,
+    .loading-state .spinner-border {
+        display: block;
+        margin: 0 auto .75rem;
+    }
+
+    .empty-state i {
+        color: #94a3b8;
+        font-size: 2rem;
+    }
+
+    .error-box {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: .85rem 1rem;
+        border: 1px solid #fecaca;
+        border-radius: 13px;
+        background: #fff1f2;
+        color: #991b1b;
+    }
+
+    .error-box.visible {
+        display: flex;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin: 0;
+    }
+
+    .pagination .page-link {
+        min-width: 38px;
+        border-radius: 10px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .modal-stock-header {
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--epi-border);
+        border-radius: 14px;
+    }
+
+    .modal-stock-icon {
+        display: grid;
+        flex: 0 0 52px;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border-radius: 14px;
+        background: #eaf1ff;
+        color: var(--epi-primary);
+        font-size: 1.35rem;
+    }
+
+    .modal-stock-header h3 {
+        margin: 0 0 .15rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .modal-stock-header p {
+        margin: 0;
+        color: var(--epi-muted);
+        font-size: .85rem;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .8rem;
+    }
+
+    .detail-item {
+        min-width: 0;
+        padding: .85rem;
+        border-radius: 13px;
+        background: #f8fafc;
+    }
+
+    .detail-item.full {
+        grid-column: 1 / -1;
+    }
+
+    .detail-item span {
+        display: block;
+        margin-bottom: .2rem;
+        color: var(--epi-muted);
+        font-size: .76rem;
+        font-weight: 600;
+    }
+
+    .detail-item strong {
+        display: block;
+        overflow-wrap: anywhere;
+        font-size: .92rem;
+    }
+
+    @media (max-width: 991.98px) {
+        .filter-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .filter-search {
+            grid-column: 1 / -1;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: .5rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .page-header {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .page-header .btn {
+            width: 100%;
+        }
+
+        .filter-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-search {
+            grid-column: auto;
+        }
+
+        .filter-actions .btn {
+            flex: 1;
+        }
+
+        .list-header,
+        .error-box {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .details-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .detail-item.full {
+            grid-column: auto;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .epis-page {
+            padding: .9rem;
+        }
+
+        .table-responsive {
+            overflow: visible;
+        }
+
+        .stock-table {
+            min-width: 0;
+        }
+
+        .stock-table thead {
+            display: none;
+        }
+
+        .stock-table,
+        .stock-table tbody,
+        .stock-table tr,
+        .stock-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .stock-table tr {
+            margin-bottom: .8rem;
+            padding: .9rem;
+            border: 1px solid var(--epi-border);
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .stock-table tr:last-child {
+            margin-bottom: 0;
+        }
+
+        .stock-table td {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: .48rem 0;
+            border: 0;
+            text-align: right;
+        }
+
+        .stock-table td::before {
+            content: attr(data-label);
+            color: var(--epi-muted);
+            font-size: .72rem;
+            font-weight: 700;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .stock-table td:first-child {
+            display: block;
+            padding-top: 0;
+            text-align: left;
+        }
+
+        .stock-table td:first-child::before {
+            display: none;
+        }
+
+        .progress-wrapper {
+            width: min(62%, 190px);
+            min-width: 110px;
+        }
+
+        .stock-table td:last-child .btn {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .metric-card,
+        .stock-table tbody tr {
+            transition: none;
+        }
+    }
+</style>
+
+<main class="epis-page">
+    <header class="page-header">
+        <div>
+            <h1 class="page-title">Estoque de EPIs</h1>
+            <p class="page-subtitle">
+                Controle completo dos Equipamentos de Proteção Individual.
+            </p>
+        </div>
+
+        <button
+            class="btn btn-primary d-inline-flex align-items-center justify-content-center gap-2"
+            type="button"
+            onclick='navegar(event, "cadastrar-epi")'
+        >
+            <i class="bi bi-plus-circle" aria-hidden="true"></i>
+            Adicionar novo EPI
+        </button>
+    </header>
+
+    <div class="error-box" id="epis-erro" role="alert">
+        <span>
+            <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>
+            Não foi possível carregar os dados dos EPIs.
+        </span>
+        <button class="btn btn-sm btn-outline-danger" id="epis-recarregar" type="button">
+            Tentar novamente
+        </button>
+    </div>
+
+    <section class="row g-3 g-xl-4 mb-3 mb-xl-4" aria-label="Indicadores de EPIs">
+        <div class="col-12 col-sm-6 col-xl-4 col-xxl-2">
+            <article class="dashboard-card metric-card metric-primary">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">EPIs cadastrados</span>
+                        <h2 class="metric-value" id="qtd-cadastrados">—</h2>
+                    </div>
+                    <div class="icon-box"><i class="bi bi-shield-check"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 col-xxl-2">
+            <article class="dashboard-card metric-card metric-success">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Em estoque</span>
+                        <h2 class="metric-value" id="qtd-em-estoque">—</h2>
+                    </div>
+                    <div class="icon-box"><i class="bi bi-box-seam"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 col-xxl-2">
+            <article class="dashboard-card metric-card metric-info">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Emprestados</span>
+                        <h2 class="metric-value" id="qtd-emprestados">—</h2>
+                    </div>
+                    <div class="icon-box"><i class="bi bi-person-check"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 col-xxl-2">
+            <article class="dashboard-card metric-card metric-danger">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Inativos</span>
+                        <h2 class="metric-value" id="qtd-inativos">—</h2>
+                    </div>
+                    <div class="icon-box"><i class="bi bi-shield-x"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 col-xxl-2">
+            <article class="dashboard-card metric-card metric-purple">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Ativos</span>
+                        <h2 class="metric-value" id="qtd-ativos">—</h2>
+                    </div>
+                    <div class="icon-box"><i class="bi bi-patch-check"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 col-xxl-2">
+            <article class="dashboard-card metric-card metric-warning">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Tipos de estoque</span>
+                        <h2 class="metric-value" id="qtd-estoques">—</h2>
+                    </div>
+                    <div class="icon-box"><i class="bi bi-boxes"></i></div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="dashboard-card p-3 p-lg-4 mb-3 mb-xl-4" aria-label="Filtros">
+        <form class="filter-grid" id="form-filtros-epis">
+            <div class="filter-search">
+                <label class="filter-label" for="pesquisa-epi">Pesquisar</label>
+                <div class="search-box">
+                    <i class="bi bi-search" aria-hidden="true"></i>
+                    <input
+                        class="form-control"
+                        id="pesquisa-epi"
+                        type="search"
+                        placeholder="Nome, categoria ou descrição..."
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+
+            <div>
+                <label class="filter-label" for="filtro-categoria">Categoria</label>
+                <select class="form-select" id="filtro-categoria">
+                    <option value="">Todas as categorias</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="filter-label" for="filtro-nivel">Nível do estoque</label>
+                <select class="form-select" id="filtro-nivel">
+                    <option value="">Todos os níveis</option>
+                    <option value="esgotado">Esgotado</option>
+                    <option value="baixo">Baixo</option>
+                    <option value="atencao">Atenção</option>
+                    <option value="normal">Normal</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-search me-1" aria-hidden="true"></i>
+                    Pesquisar
+                </button>
+                <button class="btn btn-outline-secondary" id="limpar-filtros-epis" type="button">
+                    Limpar
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section class="dashboard-card p-3 p-lg-4">
+        <div class="list-header">
+            <h2 class="list-title">Estoques cadastrados</h2>
+            <span class="results-count" id="quantidade-resultados">Carregando...</span>
+        </div>
+
+        <div class="loading-state" id="epis-loading">
+            <span class="spinner-border spinner-border-sm text-primary" aria-hidden="true"></span>
+            Carregando estoques...
+        </div>
+
+        <div class="table-responsive d-none" id="estoques-container">
+            <table class="table stock-table align-middle">
+                <thead>
+                    <tr>
+                        <th>EPI</th>
+                        <th>Total</th>
+                        <th>Disponível</th>
+                        <th>Emprestado</th>
+                        <th>Disponibilidade</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="estoques-tabela"></tbody>
+            </table>
+        </div>
+
+        <div class="empty-state d-none" id="estoques-vazio">
+            <i class="bi bi-box-seam"></i>
+            <strong class="d-block mb-1">Nenhum estoque encontrado</strong>
+            <span>Altere ou limpe os filtros para tentar novamente.</span>
+        </div>
+    </section>
+
+    <nav class="d-flex justify-content-end mt-3 mt-xl-4" aria-label="Paginação dos estoques">
+        <ul class="pagination" id="estoques-paginacao"></ul>
+    </nav>
+</main>
+
+<div class="modal fade" id="modal-estoque" tabindex="-1" aria-labelledby="modal-estoque-titulo" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="modal-estoque-titulo">Detalhes do estoque</h2>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div id="detalhes-estoque"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (() => {
+        const endpoint = "/almoxarife/epis/dados";
+        const porPagina = 8;
+        const formatarNumero = new Intl.NumberFormat("pt-BR");
+
+        const estado = {
+            estoques: [],
+            filtrados: [],
+            pagina: 1
+        };
+
+        const elementos = {
+            erro: document.getElementById("epis-erro"),
+            loading: document.getElementById("epis-loading"),
+            container: document.getElementById("estoques-container"),
+            tabela: document.getElementById("estoques-tabela"),
+            vazio: document.getElementById("estoques-vazio"),
+            quantidade: document.getElementById("quantidade-resultados"),
+            paginacao: document.getElementById("estoques-paginacao"),
+            pesquisa: document.getElementById("pesquisa-epi"),
+            categoria: document.getElementById("filtro-categoria"),
+            nivel: document.getElementById("filtro-nivel"),
+            detalhes: document.getElementById("detalhes-estoque")
+        };
+
+        const texto = (valor, padrao = "Não informado") =>
+            valor === null || valor === undefined || valor === "" ? padrao : String(valor);
+
+        const numero = valor => {
+            const resultado = Number(valor);
+            return Number.isFinite(resultado) && resultado >= 0 ? resultado : 0;
+        };
+
+        const normalizar = valor => texto(valor, "")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+
+        const escaparHtml = valor => texto(valor)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+
+        function calcularEstoque(estoque) {
+            const disponivel = numero(estoque.quantidade_em_estoque);
+            const emprestado = numero(estoque.quantidade_emprestado);
+            const total = disponivel + emprestado;
+            const percentual = total > 0 ? Math.round((disponivel / total) * 100) : 0;
+
+            let nivel;
+            let rotulo;
+            let classe;
+            let barra;
+
+            if (disponivel === 0) {
+                nivel = "esgotado";
+                rotulo = "Esgotado";
+                classe = "bg-danger";
+                barra = "bg-danger";
+            } else if (percentual <= 10) {
+                nivel = "baixo";
+                rotulo = "Baixo estoque";
+                classe = "bg-danger";
+                barra = "bg-danger";
+            } else if (percentual <= 25) {
+                nivel = "atencao";
+                rotulo = "Atenção";
+                classe = "bg-warning text-dark";
+                barra = "bg-warning";
+            } else {
+                nivel = "normal";
+                rotulo = percentual >= 60 ? "Excelente" : "Normal";
+                classe = "bg-success";
+                barra = "bg-success";
+            }
+
+            return { disponivel, emprestado, total, percentual, nivel, rotulo, classe, barra };
+        }
+
+        function preencherNumero(id, valor) {
+            document.getElementById(id).textContent = formatarNumero.format(numero(valor));
+        }
+
+        function criarElemento(tag, classes, conteudo) {
+            const elemento = document.createElement(tag);
+            if (classes) elemento.className = classes;
+            if (conteudo !== undefined) elemento.textContent = conteudo;
+            return elemento;
+        }
+
+        function criarCelula(rotulo, conteudo) {
+            const td = document.createElement("td");
+            td.dataset.label = rotulo;
+            if (conteudo instanceof Node) td.appendChild(conteudo);
+            else td.textContent = texto(conteudo);
+            return td;
+        }
+
+        function criarIdentidade(estoque) {
+            const wrapper = criarElemento("div", "epi-identity");
+            wrapper.append(
+                criarElemento("strong", "", texto(estoque.nome)),
+                criarElemento("small", "", texto(estoque.categoria))
+            );
+            return wrapper;
+        }
+
+        function criarProgresso(calculo) {
+            const wrapper = criarElemento("div", "progress-wrapper");
+            const progresso = criarElemento("div", "progress");
+            const barra = criarElemento("div", `progress-bar ${calculo.barra}`);
+            barra.style.width = `${Math.min(calculo.percentual, 100)}%`;
+            barra.setAttribute("role", "progressbar");
+            barra.setAttribute("aria-valuemin", "0");
+            barra.setAttribute("aria-valuemax", "100");
+            barra.setAttribute("aria-valuenow", String(calculo.percentual));
+            progresso.appendChild(barra);
+            wrapper.append(
+                progresso,
+                criarElemento("small", "progress-caption", `${calculo.percentual}% disponível`)
+            );
+            return wrapper;
+        }
+
+        function criarBotaoDetalhes(estoque) {
+            const botao = criarElemento("button", "btn btn-outline-primary btn-sm", "Ver detalhes");
+            botao.type = "button";
+            botao.addEventListener("click", () => abrirDetalhes(estoque));
+            return botao;
+        }
+
+        function renderizarTabela() {
+            elementos.tabela.replaceChildren();
+            elementos.loading.classList.add("d-none");
+
+            const inicio = (estado.pagina - 1) * porPagina;
+            const pagina = estado.filtrados.slice(inicio, inicio + porPagina);
+            elementos.quantidade.textContent =
+                `${estado.filtrados.length} de ${estado.estoques.length} estoque(s)`;
+
+            if (pagina.length === 0) {
+                elementos.container.classList.add("d-none");
+                elementos.vazio.classList.remove("d-none");
+                elementos.paginacao.replaceChildren();
+                return;
+            }
+
+            elementos.vazio.classList.add("d-none");
+            elementos.container.classList.remove("d-none");
+
+            pagina.forEach(estoque => {
+                const calculo = calcularEstoque(estoque);
+                const tr = document.createElement("tr");
+
+                tr.append(
+                    criarCelula("EPI", criarIdentidade(estoque)),
+                    criarCelula("Total", formatarNumero.format(calculo.total)),
+                    criarCelula("Disponível", formatarNumero.format(calculo.disponivel)),
+                    criarCelula("Emprestado", formatarNumero.format(calculo.emprestado)),
+                    criarCelula("Disponibilidade", criarProgresso(calculo)),
+                    criarCelula("Status", criarElemento("span", `badge ${calculo.classe}`, calculo.rotulo)),
+                    criarCelula("Ações", criarBotaoDetalhes(estoque))
+                );
+                elementos.tabela.appendChild(tr);
+            });
+
+            renderizarPaginacao();
+        }
+
+        function criarBotaoPagina(rotulo, pagina, desabilitado = false, ativo = false, ariaLabel = "") {
+            const li = criarElemento(
+                "li",
+                `page-item${desabilitado ? " disabled" : ""}${ativo ? " active" : ""}`
+            );
+            const botao = criarElemento("button", "page-link", rotulo);
+            botao.type = "button";
+            botao.disabled = desabilitado;
+            if (ariaLabel) botao.setAttribute("aria-label", ariaLabel);
+            if (ativo) botao.setAttribute("aria-current", "page");
+            botao.addEventListener("click", () => {
+                estado.pagina = pagina;
+                renderizarTabela();
+                elementos.container.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+            li.appendChild(botao);
+            return li;
+        }
+
+        function renderizarPaginacao() {
+            elementos.paginacao.replaceChildren();
+            const totalPaginas = Math.ceil(estado.filtrados.length / porPagina);
+            if (totalPaginas <= 1) return;
+
+            elementos.paginacao.appendChild(
+                criarBotaoPagina("‹", estado.pagina - 1, estado.pagina === 1, false, "Página anterior")
+            );
+
+            const inicio = Math.max(1, estado.pagina - 2);
+            const fim = Math.min(totalPaginas, inicio + 4);
+            for (let pagina = Math.max(1, fim - 4); pagina <= fim; pagina++) {
+                elementos.paginacao.appendChild(
+                    criarBotaoPagina(String(pagina), pagina, false, pagina === estado.pagina)
+                );
+            }
+
+            elementos.paginacao.appendChild(
+                criarBotaoPagina("›", estado.pagina + 1, estado.pagina === totalPaginas, false, "Próxima página")
+            );
+        }
+
+        function aplicarFiltros() {
+            const busca = normalizar(elementos.pesquisa.value);
+            const categoria = normalizar(elementos.categoria.value);
+            const nivel = elementos.nivel.value;
+
+            estado.filtrados = estado.estoques.filter(estoque => {
+                const campos = normalizar([
+                    estoque.id,
+                    estoque.nome,
+                    estoque.categoria,
+                    estoque.descricao
+                ].join(" "));
+
+                const correspondeBusca = !busca || campos.includes(busca);
+                const correspondeCategoria =
+                    !categoria || normalizar(estoque.categoria) === categoria;
+                const correspondeNivel =
+                    !nivel || calcularEstoque(estoque).nivel === nivel;
+
+                return correspondeBusca && correspondeCategoria && correspondeNivel;
+            });
+
+            estado.pagina = 1;
+            renderizarTabela();
+        }
+
+        function preencherCategorias() {
+            const categorias = [...new Set(
+                estado.estoques.map(item => texto(item.categoria, "")).filter(Boolean)
+            )].sort((a, b) => a.localeCompare(b, "pt-BR"));
+
+            elementos.categoria.querySelectorAll("option:not(:first-child)")
+                .forEach(option => option.remove());
+
+            categorias.forEach(categoria => {
+                const option = document.createElement("option");
+                option.value = categoria;
+                option.textContent = categoria;
+                elementos.categoria.appendChild(option);
+            });
+        }
+
+        function formatarData(valor) {
+            if (!valor) return "Não informada";
+            const data = new Date(valor);
+            return Number.isNaN(data.getTime())
+                ? texto(valor)
+                : new Intl.DateTimeFormat("pt-BR", {
+                    dateStyle: "short",
+                    timeStyle: "short"
+                }).format(data);
+        }
+
+        function detalhe(rotulo, valor, classe = "") {
+            return `<div class="detail-item ${classe}">
+                <span>${escaparHtml(rotulo)}</span>
+                <strong>${escaparHtml(texto(valor))}</strong>
+            </div>`;
+        }
+
+        function abrirDetalhes(estoque) {
+            const calculo = calcularEstoque(estoque);
+
+            elementos.detalhes.innerHTML = `
+                <div class="modal-stock-header">
+                    <div class="modal-stock-icon">
+                        <i class="bi bi-shield-check" aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h3>${escaparHtml(texto(estoque.nome))}</h3>
+                        <p>${escaparHtml(texto(estoque.categoria))}</p>
+                    </div>
+                </div>
+                <div class="details-grid">
+                    ${detalhe("ID do estoque", estoque.id)}
+                    ${detalhe("Status calculado", calculo.rotulo)}
+                    ${detalhe("Descrição", estoque.descricao, "full")}
+                    ${detalhe("Quantidade total", formatarNumero.format(calculo.total))}
+                    ${detalhe("Disponível em estoque", formatarNumero.format(calculo.disponivel))}
+                    ${detalhe("Quantidade emprestada", formatarNumero.format(calculo.emprestado))}
+                    ${detalhe("Percentual disponível", `${calculo.percentual}%`)}
+                    ${detalhe("Cadastrado em", formatarData(estoque.created_at), "full")}
+                </div>
+            `;
+
+            if (typeof bootstrap === "undefined" || !bootstrap.Modal) {
+                console.error("O Bootstrap Bundle é necessário para abrir o modal.");
+                return;
+            }
+
+            bootstrap.Modal.getOrCreateInstance(
+                document.getElementById("modal-estoque")
+            ).show();
+        }
+
+        function limparFiltros() {
+            elementos.pesquisa.value = "";
+            elementos.categoria.value = "";
+            elementos.nivel.value = "";
+            aplicarFiltros();
+        }
+
+        function preencherIndicadores(dados) {
+            preencherNumero("qtd-cadastrados", dados.quantidade_epis_cadastrados);
+            preencherNumero("qtd-emprestados", dados.quantidade_epis_emprestados);
+            preencherNumero("qtd-inativos", dados.quantidade_epis_inativos);
+            preencherNumero("qtd-ativos", dados.quantidade_epis_ativos);
+            preencherNumero("qtd-em-estoque", dados.quantidade_total_em_estoque);
+            preencherNumero("qtd-estoques", dados.quantidade_estoques);
+        }
+
+        async function carregarDados() {
+            elementos.erro.classList.remove("visible");
+            elementos.loading.classList.remove("d-none");
+            elementos.container.classList.add("d-none");
+            elementos.vazio.classList.add("d-none");
+            elementos.quantidade.textContent = "Carregando...";
+            elementos.paginacao.replaceChildren();
+
+            try {
+                const resposta = await fetch(endpoint, {
+                    method: "GET",
+                    credentials: "same-origin",
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro HTTP ${resposta.status}`);
+                }
+
+                const dados = await resposta.json();
+                if (!Array.isArray(dados.estoques)) {
+                    throw new Error("A resposta não contém a lista de estoques.");
+                }
+
+                preencherIndicadores(dados);
+                estado.estoques = dados.estoques;
+                estado.filtrados = [...dados.estoques];
+                estado.pagina = 1;
+                preencherCategorias();
+                renderizarTabela();
+            } catch (erro) {
+                console.error("Erro ao carregar os EPIs:", erro);
+                elementos.loading.classList.add("d-none");
+                elementos.quantidade.textContent = "Dados indisponíveis";
+                elementos.erro.classList.add("visible");
+            }
+        }
+
+        document.getElementById("form-filtros-epis").addEventListener("submit", evento => {
+            evento.preventDefault();
+            aplicarFiltros();
+        });
+
+        elementos.pesquisa.addEventListener("input", aplicarFiltros);
+        elementos.categoria.addEventListener("change", aplicarFiltros);
+        elementos.nivel.addEventListener("change", aplicarFiltros);
+        document.getElementById("limpar-filtros-epis").addEventListener("click", limparFiltros);
+        document.getElementById("epis-recarregar").addEventListener("click", carregarDados);
+
+        carregarDados();
+    })();
+</script>

@@ -1,0 +1,292 @@
+<style>
+body{
+    background:#EEF4F8;
+}
+
+.history-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.page-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
+.table tbody tr{
+    transition:.2s;
+}
+
+.table tbody tr:hover{
+    background:#F8FAFC;
+}
+
+.badge{
+    padding:.55rem .8rem;
+    font-weight:500;
+}
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- Cabeçalho -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title">
+                Meu Histórico
+            </h2>
+
+            <p class="page-subtitle mb-0">
+                Consulte todas as movimentações realizadas com seus EPIs.
+            </p>
+
+        </div>
+
+        <a href="../pages/funcionarios/historico-completo.html" onclick="navegar(event, 'historico-completo')" class="btn btn-outline-primary">
+            <i class="bi bi-clock-history"></i>
+            Ver histórico completo
+        </a>
+
+    </div>
+
+    <!-- Histórico -->
+
+    <div class="card history-card">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-4">
+
+                Últimas movimentações
+
+            </h5>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Data</th>
+
+                            <th>EPI</th>
+
+                            <th>Movimentação</th>
+
+                            <th>Observação</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>08/07/2026</td>
+
+                            <td>Capacete MSA V-Gard</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento entregue para utilização.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>15/06/2026</td>
+
+                            <td>Óculos de Proteção</td>
+
+                            <td>
+
+                                <span class="badge bg-danger">
+
+                                    Devolução
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento devolvido ao almoxarifado.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>15/06/2026</td>
+
+                            <td>Óculos de Proteção</td>
+
+                            <td>
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Troca
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Recebido um novo equipamento.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>02/04/2026</td>
+
+                            <td>Botina de Segurança</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Primeira entrega do equipamento.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>18/02/2026</td>
+
+                            <td>Luvas de Raspa</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento entregue ao colaborador.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Resumo -->
+
+    <div class="row mt-4">
+
+        <div class="col-md-4">
+
+            <div class="card history-card">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-secondary">
+
+                        EPIs Recebidos
+
+                    </h6>
+
+                    <h2 class="text-primary fw-bold">
+
+                        12
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card history-card">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-secondary">
+
+                        Devoluções
+
+                    </h6>
+
+                    <h2 class="text-danger fw-bold">
+
+                        5
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card history-card">
+
+                <div class="card-body text-center">
+
+                    <h6 class="text-secondary">
+
+                        Trocas
+
+                    </h6>
+
+                    <h2 class="text-warning fw-bold">
+
+                        2
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,437 @@
+<style>
+body{
+    background:#EEF4F8;
+    font-family:"Segoe UI",sans-serif;
+}
+
+.settings-card{
+    border:none;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.nav-pills .nav-link{
+    color:#334155;
+    border-radius:12px;
+    padding:12px 16px;
+    margin-bottom:8px;
+    transition:.2s;
+}
+
+.nav-pills .nav-link:hover{
+    background:#E2E8F0;
+}
+
+.nav-pills .nav-link.active{
+    background:#2563EB;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    box-shadow:none;
+    border-color:#2563EB;
+}
+
+.section-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.section-subtitle{
+    color:#64748B;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#2563EB;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:2rem;
+}
+</style>
+
+<div class="container py-5">
+
+    <a href="../pages/funcionarios/dashboard.html" onclick="navegar(event, 'dashboard')" class="btn btn-outline-secondary mb-4">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Voltar ao Dashboard
+
+    </a>
+
+    <div class="card settings-card">
+
+        <div class="card-body p-4">
+
+            <div class="row">
+
+                <!-- Menu -->
+
+                <div class="col-lg-3 border-end">
+
+                    <div class="text-center mb-4">
+
+                        <div class="avatar mx-auto mb-3">
+
+                            <i class="bi bi-person-fill"></i>
+
+                        </div>
+
+                        <h5 class="mb-0">
+                            Gustavo Machado
+                        </h5>
+
+                        <small class="text-secondary">
+                            Funcionário
+                        </small>
+
+                    </div>
+
+                    <div class="nav flex-column nav-pills">
+
+                        <button
+                        class="nav-link active"
+                        data-bs-toggle="pill"
+                        data-bs-target="#perfil">
+
+                            <i class="bi bi-person me-2"></i>
+
+                            Perfil
+
+                        </button>
+
+                        <button
+                        class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#conta">
+
+                            <i class="bi bi-envelope me-2"></i>
+
+                            Conta
+
+                        </button>
+
+                        <button
+                        class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#senha">
+
+                            <i class="bi bi-key me-2"></i>
+
+                            Senha
+
+                        </button>
+
+                        <button
+                        class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#trabalho">
+
+                            <i class="bi bi-briefcase me-2"></i>
+
+                            Trabalho
+
+                        </button>
+
+                        <button
+                        class="nav-link"
+                        data-bs-toggle="pill"
+                        data-bs-target="#preferencias">
+
+                            <i class="bi bi-sliders me-2"></i>
+
+                            Preferências
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Conteúdo -->
+
+                <div class="col-lg-9">
+
+                    <div class="tab-content">
+
+                        <!-- Perfil -->
+
+                        <div class="tab-pane fade show active" id="perfil">
+
+                            <h4 class="section-title">
+
+                                Informações Pessoais
+
+                            </h4>
+
+                            <p class="section-subtitle">
+
+                                Atualize seus dados básicos.
+
+                            </p>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>Nome completo</label>
+
+                                    <input
+                                    class="form-control"
+                                    value="Gustavo Machado">
+
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+
+                                    <label>CPF</label>
+
+                                    <input
+                                    class="form-control"
+                                    value="000.000.000-00"
+                                    disabled>
+
+                                </div>
+
+                            </div>
+
+                            <button class="btn btn-primary">
+
+                                Salvar alterações
+
+                            </button>
+
+                        </div>
+
+                        <!-- Conta -->
+
+                        <div class="tab-pane fade" id="conta">
+
+                            <h4 class="section-title">
+
+                                Conta
+
+                            </h4>
+
+                            <p class="section-subtitle">
+
+                                Atualize seu e-mail de acesso.
+
+                            </p>
+
+                            <div class="mb-3">
+
+                                <label>Email</label>
+
+                                <input
+                                type="email"
+                                class="form-control"
+                                value="gustavo@email.com">
+
+                            </div>
+
+                            <button class="btn btn-primary">
+
+                                Atualizar Email
+
+                            </button>
+
+                        </div>
+
+                        <!-- Senha -->
+
+                        <div class="tab-pane fade" id="senha">
+
+                            <h4 class="section-title">
+
+                                Alterar Senha
+
+                            </h4>
+
+                            <p class="section-subtitle">
+
+                                Utilize uma senha forte.
+
+                            </p>
+
+                            <div class="mb-3">
+
+                                <label>Senha atual</label>
+
+                                <input
+                                type="password"
+                                class="form-control">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label>Nova senha</label>
+
+                                <input
+                                type="password"
+                                class="form-control">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label>Confirmar senha</label>
+
+                                <input
+                                type="password"
+                                class="form-control">
+
+                            </div>
+
+                            <button class="btn btn-primary">
+
+                                Alterar Senha
+
+                            </button>
+
+                        </div>
+
+                        <!-- Trabalho -->
+
+                        <div class="tab-pane fade" id="trabalho">
+
+                            <h4 class="section-title">
+
+                                Informações Profissionais
+
+                            </h4>
+
+                            <p class="section-subtitle">
+
+                                Solicite atualização dos seus dados.
+
+                            </p>
+
+                            <div class="mb-3">
+
+                                <label>Cargo</label>
+
+                                <input
+                                class="form-control"
+                                value="Auxiliar de Produção">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label>Setor</label>
+
+                                <input
+                                class="form-control"
+                                value="Produção">
+
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label>Telefone</label>
+
+                                <input
+                                class="form-control"
+                                placeholder="(31) 99999-9999">
+
+                            </div>
+
+                            <button class="btn btn-primary">
+
+                                Solicitar Atualização
+
+                            </button>
+
+                        </div>
+
+                        <!-- Preferências -->
+
+                        <div class="tab-pane fade" id="preferencias">
+
+                            <h4 class="section-title">
+
+                                Preferências
+
+                            </h4>
+
+                            <p class="section-subtitle">
+
+                                Personalize sua experiência.
+
+                            </p>
+
+                            <div class="form-check form-switch mb-3">
+
+                                <input
+                                class="form-check-input"
+                                type="checkbox"
+                                checked>
+
+                                <label class="form-check-label">
+
+                                    Receber notificações por e-mail
+
+                                </label>
+
+                            </div>
+
+                            <div class="form-check form-switch mb-3">
+
+                                <input
+                                class="form-check-input"
+                                type="checkbox"
+                                checked>
+
+                                <label class="form-check-label">
+
+                                    Receber avisos sobre troca de EPIs
+
+                                </label>
+
+                            </div>
+
+                            <div class="form-check form-switch mb-4">
+
+                                <input
+                                class="form-check-input"
+                                type="checkbox">
+
+                                <label class="form-check-label">
+
+                                    Modo escuro (Em breve)
+
+                                </label>
+
+                            </div>
+
+                            <button class="btn btn-primary">
+
+                                Salvar Preferências
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

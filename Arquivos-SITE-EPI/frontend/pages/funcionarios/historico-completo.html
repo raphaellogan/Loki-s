@@ -1,0 +1,469 @@
+<style>
+body{
+    background:#EEF4F8;
+}
+
+.history-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.page-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
+.table tbody tr{
+    transition:.2s;
+}
+
+.table tbody tr:hover{
+    background:#F8FAFC;
+}
+
+.badge{
+    padding:.55rem .85rem;
+    font-weight:500;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+}
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- Cabeçalho -->
+
+    <div class="mb-4">
+
+        <h2 class="page-title">
+            Histórico Completo
+        </h2>
+
+        <p class="page-subtitle mb-0">
+            Consulte todas as movimentações realizadas com seus EPIs.
+        </p>
+
+    </div>
+
+    <!-- Filtros -->
+
+    <div class="card history-card mb-4">
+
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-lg-4">
+
+                    <label class="form-label">
+                        Pesquisar EPI
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Capacete, Luvas...">
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+                        Tipo
+                    </label>
+
+                    <select class="form-select">
+
+                        <option selected>
+                            Todas
+                        </option>
+
+                        <option>
+                            Recebimento
+                        </option>
+
+                        <option>
+                            Devolução
+                        </option>
+
+                        <option>
+                            Troca
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+                        Ano
+                    </label>
+
+                    <select class="form-select">
+
+                        <option>
+                            Todos
+                        </option>
+
+                        <option>
+                            2026
+                        </option>
+
+                        <option>
+                            2025
+                        </option>
+
+                        <option>
+                            2024
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2 d-grid">
+
+                    <label class="form-label invisible">
+                        Buscar
+                    </label>
+
+                    <button class="btn btn-primary">
+
+                        <i class="bi bi-search"></i>
+
+                        Pesquisar
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Histórico -->
+
+    <div class="card history-card">
+
+        <div class="card-body">
+
+            <h5 class="fw-bold mb-4">
+
+                Todas as movimentações
+
+            </h5>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>Data</th>
+
+                            <th>EPI</th>
+
+                            <th>Movimentação</th>
+
+                            <th>Observação</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>08/07/2026</td>
+
+                            <td>Capacete MSA V-Gard</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento entregue ao colaborador.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>15/06/2026</td>
+
+                            <td>Óculos de Proteção</td>
+
+                            <td>
+
+                                <span class="badge bg-danger">
+
+                                    Devolução
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Devolvido em boas condições.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>15/06/2026</td>
+
+                            <td>Óculos de Proteção</td>
+
+                            <td>
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Troca
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento substituído por desgaste.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>02/04/2026</td>
+
+                            <td>Botina de Segurança</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Primeira entrega.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>18/02/2026</td>
+
+                            <td>Luvas de Raspa</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento entregue.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>08/01/2026</td>
+
+                            <td>Protetor Auricular</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Entrega inicial.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>11/11/2025</td>
+
+                            <td>Capacete MSA V-Gard</td>
+
+                            <td>
+
+                                <span class="badge bg-warning text-dark">
+
+                                    Troca
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Substituição preventiva.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>04/09/2025</td>
+
+                            <td>Botina de Segurança</td>
+
+                            <td>
+
+                                <span class="badge bg-danger">
+
+                                    Devolução
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Equipamento desgastado.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>17/08/2025</td>
+
+                            <td>Botina de Segurança</td>
+
+                            <td>
+
+                                <span class="badge bg-primary">
+
+                                    Recebimento
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Entrega após admissão.
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>16/08/2025</td>
+
+                            <td>Termo de Responsabilidade</td>
+
+                            <td>
+
+                                <span class="badge bg-success">
+
+                                    Assinatura
+
+                                </span>
+
+                            </td>
+
+                            <td>
+                                Termo assinado eletronicamente.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Paginação -->
+
+            <nav class="mt-4">
+
+                <ul class="pagination justify-content-end">
+
+                    <li class="page-item disabled">
+
+                        <a class="page-link">
+                            Anterior
+                        </a>
+
+                    </li>
+
+                    <li class="page-item active">
+
+                        <a class="page-link">
+                            1
+                        </a>
+
+                    </li>
+
+                    <li class="page-item">
+
+                        <a class="page-link">
+                            2
+                        </a>
+
+                    </li>
+
+                    <li class="page-item">
+
+                        <a class="page-link">
+                            3
+                        </a>
+
+                    </li>
+
+                    <li class="page-item">
+
+                        <a class="page-link">
+                            Próxima
+                        </a>
+
+                    </li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </div>
+
+</div>

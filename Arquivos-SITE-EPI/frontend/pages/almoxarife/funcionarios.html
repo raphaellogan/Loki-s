@@ -1,0 +1,779 @@
+<style>
+    :root {
+        --page-bg: #eef4f8;
+        --card-bg: #fff;
+        --text: #172033;
+        --muted: #667085;
+        --border: #e5eaf0;
+        --primary: #2563eb;
+        --danger: #dc2626;
+        --warning: #d97706;
+        --success: #16a34a;
+    }
+
+    body {
+        background: var(--page-bg);
+        color: var(--text);
+    }
+
+    .funcionarios-page {
+        width: 100%;
+        max-width: 1600px;
+        margin-inline: auto;
+        padding: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+        margin: 0 0 .3rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 750;
+    }
+
+    .page-subtitle {
+        margin: 0;
+        color: var(--muted);
+    }
+
+    .dashboard-card {
+        height: 100%;
+        border: 1px solid rgba(229, 234, 240, .9);
+        border-radius: 18px;
+        background: var(--card-bg);
+        box-shadow: 0 8px 22px rgba(16, 24, 40, .055);
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(16, 24, 40, .085);
+    }
+
+    .metric-card {
+        position: relative;
+        min-width: 0;
+        padding: 1.2rem;
+        overflow: hidden;
+    }
+
+    .metric-card::after {
+        content: "";
+        position: absolute;
+        inset: 0 0 0 auto;
+        width: 5px;
+        background: var(--metric-color);
+    }
+
+    .metric-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .8rem;
+    }
+
+    .metric-label {
+        display: block;
+        margin-bottom: .4rem;
+        color: var(--muted);
+        font-size: .86rem;
+        font-weight: 600;
+    }
+
+    .metric-value {
+        margin: 0;
+        color: var(--metric-color);
+        font-size: clamp(1.7rem, 4vw, 2.25rem);
+        font-weight: 750;
+        line-height: 1;
+    }
+
+    .info-icon {
+        display: grid;
+        flex: 0 0 54px;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        border-radius: 15px;
+        background: var(--metric-soft);
+        color: var(--metric-color);
+        font-size: 1.4rem;
+    }
+
+    .metric-danger {
+        --metric-color: var(--danger);
+        --metric-soft: #ffeded;
+    }
+
+    .metric-warning {
+        --metric-color: var(--warning);
+        --metric-soft: #fff5df;
+    }
+
+    .metric-primary {
+        --metric-color: var(--primary);
+        --metric-soft: #eaf1ff;
+    }
+
+    .metric-success {
+        --metric-color: var(--success);
+        --metric-soft: #eaf8ef;
+    }
+
+    .section-card {
+        padding: clamp(1rem, 2vw, 1.35rem);
+    }
+
+    .section-title {
+        margin: 0 0 1rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .attention-table {
+        min-width: 680px;
+        margin: 0;
+    }
+
+    .attention-table th {
+        border-bottom-color: var(--border);
+        color: var(--muted);
+        font-size: .78rem;
+        font-weight: 650;
+        text-transform: uppercase;
+        letter-spacing: .025em;
+    }
+
+    .attention-table td {
+        border-bottom-color: #eef1f4;
+        vertical-align: middle;
+    }
+
+    .attention-table tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    .employee-cell {
+        display: flex;
+        align-items: center;
+        gap: .7rem;
+        min-width: 170px;
+    }
+
+    .employee-avatar {
+        display: grid;
+        flex: 0 0 38px;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 11px;
+        background: #eaf1ff;
+        color: var(--primary);
+        font-weight: 700;
+    }
+
+    .employee-cell strong,
+    .employee-cell small {
+        display: block;
+    }
+
+    .employee-cell small {
+        color: var(--muted);
+    }
+
+    .alert-list {
+        display: grid;
+        gap: .7rem;
+    }
+
+    .alert-item {
+        display: flex;
+        align-items: center;
+        gap: .8rem;
+        padding: .8rem;
+        border-radius: 13px;
+        background: #f8fafc;
+    }
+
+    .alert-item i {
+        flex: 0 0 auto;
+        font-size: 1.25rem;
+    }
+
+    .alert-item div {
+        min-width: 0;
+    }
+
+    .alert-item strong,
+    .alert-item small {
+        display: block;
+    }
+
+    .alert-item small {
+        color: var(--muted);
+    }
+
+    .summary-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .75rem;
+    }
+
+    .summary-item {
+        min-width: 0;
+        padding: .85rem;
+        border-radius: 13px;
+        background: #f8fafc;
+    }
+
+    .summary-item span {
+        display: block;
+        margin-bottom: .25rem;
+        color: var(--muted);
+        font-size: .78rem;
+    }
+
+    .summary-item strong {
+        display: block;
+        overflow: hidden;
+        font-size: 1.15rem;
+        text-overflow: ellipsis;
+    }
+
+    .empty-state {
+        padding: 2rem 1rem;
+        color: var(--muted);
+        text-align: center;
+    }
+
+    .empty-state i {
+        display: block;
+        margin-bottom: .5rem;
+        color: #94a3b8;
+        font-size: 1.8rem;
+    }
+
+    .dashboard-error {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: .85rem 1rem;
+        border: 1px solid #fecaca;
+        border-radius: 13px;
+        background: #fff1f2;
+        color: #991b1b;
+    }
+
+    .dashboard-error.visible {
+        display: flex;
+    }
+
+    .loading-value {
+        display: inline-block;
+        width: 55px;
+        height: 30px;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #edf0f4 25%, #fafafa 50%, #edf0f4 75%);
+        background-size: 200% 100%;
+        animation: loading 1.2s infinite;
+    }
+
+    @keyframes loading {
+        to { background-position: -200% 0; }
+    }
+
+    @media (max-width: 767.98px) {
+        .page-header {
+            align-items: stretch;
+            flex-direction: column;
+        }
+
+        .page-header .btn {
+            width: 100%;
+        }
+
+        .summary-list {
+            grid-template-columns: 1fr;
+        }
+
+        .dashboard-error {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .funcionarios-page {
+            padding: .9rem;
+        }
+
+        .metric-card {
+            padding: 1rem;
+        }
+
+        .table-responsive {
+            overflow: visible;
+        }
+
+        .attention-table {
+            min-width: 0;
+        }
+
+        .attention-table thead {
+            display: none;
+        }
+
+        .attention-table,
+        .attention-table tbody,
+        .attention-table tr,
+        .attention-table td {
+            display: block;
+            width: 100%;
+        }
+
+        .attention-table tr {
+            margin-bottom: .8rem;
+            padding: .9rem;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fff;
+        }
+
+        .attention-table tr:last-child {
+            margin-bottom: 0;
+        }
+
+        .attention-table td {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: .45rem 0;
+            border: 0;
+            text-align: right;
+        }
+
+        .attention-table td::before {
+            content: attr(data-label);
+            color: var(--muted);
+            font-size: .76rem;
+            font-weight: 650;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+        .attention-table td:first-child {
+            display: block;
+            padding-top: 0;
+            text-align: left;
+        }
+
+        .attention-table td:first-child::before {
+            display: none;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .dashboard-card {
+            transition: none;
+        }
+
+        .loading-value {
+            animation: none;
+        }
+    }
+</style>
+
+<main class="funcionarios-page">
+    <header class="page-header">
+        <div>
+            <h1 class="page-title">Funcionários</h1>
+            <p class="page-subtitle">Acompanhe colaboradores que precisam de atenção.</p>
+        </div>
+
+        <a
+            class="btn btn-primary d-inline-flex align-items-center justify-content-center gap-2"
+            href="/almoxarife/funcionarios-completo"
+            onclick="navegar(event, 'funcionarios-completo')"
+        >
+            <i class="bi bi-people-fill" aria-hidden="true"></i>
+            Ver todos os funcionários
+        </a>
+    </header>
+
+    <div class="dashboard-error" id="funcionarios-erro" role="alert">
+        <span>
+            <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>
+            Não foi possível carregar os dados dos funcionários.
+        </span>
+        <button class="btn btn-sm btn-outline-danger" id="funcionarios-recarregar" type="button">
+            Tentar novamente
+        </button>
+    </div>
+
+    <section class="row g-3 g-xl-4" aria-label="Indicadores dos funcionários">
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="dashboard-card metric-card metric-danger">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Devendo EPIs</span>
+                        <h2 class="metric-value" id="qtd-devendo">
+                            <span class="loading-value" aria-label="Carregando"></span>
+                        </h2>
+                    </div>
+                    <div class="info-icon"><i class="bi bi-arrow-return-left"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="dashboard-card metric-card metric-warning">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Troca próxima</span>
+                        <h2 class="metric-value" id="qtd-trocas">
+                            <span class="loading-value" aria-label="Carregando"></span>
+                        </h2>
+                    </div>
+                    <div class="info-icon"><i class="bi bi-clock-history"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="dashboard-card metric-card metric-primary">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Sem EPIs</span>
+                        <h2 class="metric-value" id="qtd-sem-epis">
+                            <span class="loading-value" aria-label="Carregando"></span>
+                        </h2>
+                    </div>
+                    <div class="info-icon"><i class="bi bi-person-x-fill"></i></div>
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-3">
+            <article class="dashboard-card metric-card metric-success">
+                <div class="metric-content">
+                    <div>
+                        <span class="metric-label">Regularizados</span>
+                        <h2 class="metric-value" id="qtd-regularizados">
+                            <span class="loading-value" aria-label="Carregando"></span>
+                        </h2>
+                    </div>
+                    <div class="info-icon"><i class="bi bi-patch-check-fill"></i></div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="row g-3 g-xl-4 mt-1">
+        <div class="col-12 col-xl-8">
+            <article class="dashboard-card section-card">
+                <h2 class="section-title">Próximas devoluções</h2>
+
+                <div class="table-responsive">
+                    <table class="table attention-table">
+                        <thead>
+                            <tr>
+                                <th>Funcionário</th>
+                                <th>EPI</th>
+                                <th>Devolução</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-devolucoes"></tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state d-none" id="vazio-devolucoes">
+                    <i class="bi bi-calendar2-check"></i>
+                    Nenhuma devolução próxima encontrada.
+                </div>
+            </article>
+
+            <article class="dashboard-card section-card mt-3 mt-xl-4">
+                <h2 class="section-title">Funcionários de setores que exigem EPI</h2>
+
+                <div class="table-responsive">
+                    <table class="table attention-table">
+                        <thead>
+                            <tr>
+                                <th>Funcionário</th>
+                                <th>Setor</th>
+                                <th>Cargo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-sem-epis"></tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state d-none" id="vazio-sem-epis">
+                    <i class="bi bi-person-check"></i>
+                    Nenhum funcionário sem EPI encontrado nesses setores.
+                </div>
+            </article>
+        </div>
+
+        <div class="col-12 col-xl-4">
+            <article class="dashboard-card section-card mb-3 mb-xl-4">
+                <h2 class="section-title">Alertas</h2>
+
+                <div class="alert-list">
+                    <div class="alert-item">
+                        <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                        <div>
+                            <strong><span id="alerta-vencidos">—</span> EPIs vencidos não devolvidos</strong>
+                            <small>Exigem acompanhamento imediato.</small>
+                        </div>
+                    </div>
+
+                    <div class="alert-item">
+                        <i class="bi bi-shield-exclamation text-warning"></i>
+                        <div>
+                            <strong><span id="alerta-trocas">—</span> próximos da troca</strong>
+                            <small>Planeje as substituições.</small>
+                        </div>
+                    </div>
+
+                    <div class="alert-item">
+                        <i class="bi bi-person-plus-fill text-primary"></i>
+                        <div>
+                            <strong><span id="alerta-novos">—</span> funcionários novos</strong>
+                            <small>Cadastrados nos últimos 30 dias.</small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="dashboard-card section-card">
+                <h2 class="section-title">Resumo</h2>
+
+                <div class="summary-list">
+                    <div class="summary-item">
+                        <span>Funcionários</span>
+                        <strong id="resumo-funcionarios">—</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>EPIs ativos</span>
+                        <strong id="resumo-epis">—</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Trocas amanhã</span>
+                        <strong id="resumo-amanha">—</strong>
+                    </div>
+                    <div class="summary-item">
+                        <span>Sem EPIs</span>
+                        <strong id="resumo-sem-epis">—</strong>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<script>
+    (() => {
+        const endpoint = "/almoxarife/funcionarios/dados";
+        const formatarNumero = new Intl.NumberFormat("pt-BR");
+
+        const numeroSeguro = valor => {
+            const numero = Number(valor);
+            return Number.isFinite(numero) && numero >= 0 ? numero : 0;
+        };
+
+        const textoSeguro = (valor, padrao = "Não informado") =>
+            valor === null || valor === undefined || valor === "" ? padrao : String(valor);
+
+        const iniciais = nome => textoSeguro(nome, "?")
+            .trim()
+            .split(/\s+/)
+            .slice(0, 2)
+            .map(parte => parte[0])
+            .join("")
+            .toUpperCase();
+
+        function formatarData(valor) {
+            if (!valor) return "Não informada";
+
+            const texto = String(valor);
+            const apenasData = texto.match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+            if (apenasData) {
+                return `${apenasData[3]}/${apenasData[2]}/${apenasData[1]}`;
+            }
+
+            const data = new Date(valor);
+            return Number.isNaN(data.getTime())
+                ? texto
+                : new Intl.DateTimeFormat("pt-BR").format(data);
+        }
+
+        function criarCelula(rotulo, conteudo) {
+            const td = document.createElement("td");
+            td.dataset.label = rotulo;
+
+            if (conteudo instanceof Node) {
+                td.appendChild(conteudo);
+            } else {
+                td.textContent = textoSeguro(conteudo);
+            }
+
+            return td;
+        }
+
+        function criarFuncionario(nome, detalhe) {
+            const wrapper = document.createElement("div");
+            wrapper.className = "employee-cell";
+
+            const avatar = document.createElement("span");
+            avatar.className = "employee-avatar";
+            avatar.textContent = iniciais(nome);
+
+            const dados = document.createElement("div");
+            const nomeEl = document.createElement("strong");
+            const detalheEl = document.createElement("small");
+            nomeEl.textContent = textoSeguro(nome);
+            detalheEl.textContent = textoSeguro(detalhe, "");
+
+            dados.append(nomeEl, detalheEl);
+            wrapper.append(avatar, dados);
+            return wrapper;
+        }
+
+        function criarBadge(texto, classe) {
+            const badge = document.createElement("span");
+            badge.className = `badge ${classe}`;
+            badge.textContent = texto;
+            return badge;
+        }
+
+        function renderizarDevolucoes(lista) {
+            const corpo = document.getElementById("tabela-devolucoes");
+            const vazio = document.getElementById("vazio-devolucoes");
+            corpo.replaceChildren();
+
+            if (!Array.isArray(lista) || lista.length === 0) {
+                vazio.classList.remove("d-none");
+                corpo.closest(".table-responsive").classList.add("d-none");
+                return;
+            }
+
+            vazio.classList.add("d-none");
+            corpo.closest(".table-responsive").classList.remove("d-none");
+
+            lista.forEach(item => {
+                const nome = item.nome ?? item.usuario_nome ?? item.funcionario_nome;
+                const setor = item.setor ?? item.usuario_setor;
+                const epi = item.epi_nome ?? item.nome_epi ?? item.epi;
+                const data = item.data_devolucao ?? item.data_prevista_devolucao ?? item.prazo;
+                const atrasado = item.atrasado === true || item.status === "vencido";
+                const tr = document.createElement("tr");
+
+                tr.append(
+                    criarCelula("Funcionário", criarFuncionario(nome, setor)),
+                    criarCelula("EPI", epi),
+                    criarCelula("Devolução", formatarData(data)),
+                    criarCelula(
+                        "Status",
+                        criarBadge(atrasado ? "Vencido" : "Próximo", atrasado ? "bg-danger" : "bg-warning text-dark")
+                    )
+                );
+                corpo.appendChild(tr);
+            });
+        }
+
+        function renderizarSemEpis(lista) {
+            const corpo = document.getElementById("tabela-sem-epis");
+            const vazio = document.getElementById("vazio-sem-epis");
+            corpo.replaceChildren();
+
+            if (!Array.isArray(lista) || lista.length === 0) {
+                vazio.classList.remove("d-none");
+                corpo.closest(".table-responsive").classList.add("d-none");
+                return;
+            }
+
+            vazio.classList.add("d-none");
+            corpo.closest(".table-responsive").classList.remove("d-none");
+
+            lista.forEach(item => {
+                const nome = item.nome ?? item.usuario_nome ?? item.funcionario_nome;
+                const email = item.email ?? item.usuario_email;
+                const setor = item.setor ?? item.usuario_setor;
+                const cargo = item.cargo ?? item.usuario_cargo;
+                const tr = document.createElement("tr");
+
+                tr.append(
+                    criarCelula("Funcionário", criarFuncionario(nome, email)),
+                    criarCelula("Setor", setor),
+                    criarCelula("Cargo", cargo),
+                    criarCelula("Status", criarBadge("Sem EPI", "bg-primary"))
+                );
+                corpo.appendChild(tr);
+            });
+        }
+
+        function preencher(id, valor) {
+            document.getElementById(id).textContent =
+                formatarNumero.format(numeroSeguro(valor));
+        }
+
+        function preencherDashboard(dados) {
+            preencher("qtd-devendo", dados.quantidade_usuarios_devendo_epis);
+            preencher("qtd-trocas", dados.quantidade_trocas_proximas);
+            preencher("qtd-sem-epis", dados.quantidade_usuarios_sem_epis);
+            preencher("qtd-regularizados", dados.quantidade_entregas_regularizadas);
+
+            preencher("alerta-vencidos", dados.quantidade_epis_vencidos_nao_entregues);
+            preencher("alerta-trocas", dados.quantidade_epis_proximos_troca_vencimento);
+            preencher("alerta-novos", dados.quantidade_funcionarios_novos);
+
+            preencher("resumo-funcionarios", dados.quantidade_total_funcionarios);
+            preencher("resumo-epis", dados.quantidade_epis_ativos);
+            preencher("resumo-amanha", dados.quantidade_trocas_proximo_dia);
+            preencher("resumo-sem-epis", dados.quantidade_usuarios_sem_epis);
+
+            renderizarDevolucoes(dados.devolucoes_proximas);
+            renderizarSemEpis(dados.usuarios_de_setores_sem_epis);
+        }
+
+        async function carregarFuncionarios() {
+            const erro = document.getElementById("funcionarios-erro");
+            erro.classList.remove("visible");
+
+            try {
+                const resposta = await fetch(endpoint, {
+                    method: "GET",
+                    credentials: "same-origin",
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro HTTP ${resposta.status}`);
+                }
+
+                preencherDashboard(await resposta.json());
+            } catch (falha) {
+                console.error("Erro ao carregar dados dos funcionários:", falha);
+                erro.classList.add("visible");
+            }
+        }
+
+        document.getElementById("funcionarios-recarregar")
+            .addEventListener("click", carregarFuncionarios);
+
+        carregarFuncionarios();
+    })();
+</script>

@@ -1,0 +1,1110 @@
+<style>
+    :root {
+        --cad-bg: #eef4f8;
+        --cad-card: #ffffff;
+        --cad-text: #1f2937;
+        --cad-muted: #64748b;
+        --cad-border: #e5eaf0;
+        --cad-primary: #2563eb;
+        --cad-primary-soft: #eaf1ff;
+        --cad-success: #16a34a;
+        --cad-warning: #d97706;
+        --cad-danger: #dc2626;
+    }
+
+    body {
+        background: var(--cad-bg);
+        color: var(--cad-text);
+    }
+
+    .cadastro-epi-page {
+        width: 100%;
+        max-width: 1450px;
+        margin-inline: auto;
+        padding: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .page-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+        margin: 0 0 .3rem;
+        color: var(--cad-text);
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 750;
+    }
+
+    .page-subtitle {
+        max-width: 720px;
+        margin: 0;
+        color: var(--cad-muted);
+    }
+
+    .cad-card {
+        border: 1px solid rgba(229, 234, 240, .95);
+        border-radius: 18px;
+        background: var(--cad-card);
+        box-shadow: 0 8px 24px rgba(16, 24, 40, .055);
+    }
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        margin: 0 0 1.15rem;
+        font-size: 1.05rem;
+        font-weight: 700;
+    }
+
+    .section-title i {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border-radius: 11px;
+        background: var(--cad-primary-soft);
+        color: var(--cad-primary);
+    }
+
+    .form-label {
+        margin-bottom: .4rem;
+        color: #475569;
+        font-size: .82rem;
+        font-weight: 650;
+    }
+
+    .required::after {
+        content: " *";
+        color: var(--cad-danger);
+    }
+
+    .form-control,
+    .form-select,
+    .input-group-text {
+        min-height: 46px;
+        border-color: #dbe2ea;
+        border-radius: 11px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #93b4ff;
+        box-shadow: 0 0 0 .22rem rgba(37, 99, 235, .12);
+    }
+
+    .input-group > .input-group-text {
+        border-radius: 11px 0 0 11px;
+        background: #f8fafc;
+        color: var(--cad-muted);
+    }
+
+    .input-group > .form-control {
+        border-radius: 0 11px 11px 0;
+    }
+
+    .helper-text {
+        display: block;
+        margin-top: .35rem;
+        color: var(--cad-muted);
+        font-size: .75rem;
+        line-height: 1.4;
+    }
+
+    .quantity-control {
+        display: grid;
+        grid-template-columns: 46px minmax(70px, 1fr) 46px;
+        gap: .5rem;
+        max-width: 210px;
+    }
+
+    .quantity-control .btn {
+        display: grid;
+        min-height: 46px;
+        place-items: center;
+        border-radius: 11px;
+    }
+
+    .quantity-control .form-control {
+        text-align: center;
+        font-weight: 700;
+    }
+
+    .code-status {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        min-height: 46px;
+        padding: .65rem .8rem;
+        border: 1px solid #dbe2ea;
+        border-radius: 11px;
+        background: #f8fafc;
+    }
+
+    .code-status i {
+        color: var(--cad-primary);
+    }
+
+    .code-status strong,
+    .code-status small {
+        display: block;
+    }
+
+    .code-status small {
+        color: var(--cad-muted);
+        font-size: .74rem;
+    }
+
+    .code-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .45rem;
+        margin-top: .85rem;
+    }
+
+    .code-chip {
+        padding: .42rem .65rem;
+        border: 1px solid #cfe0ff;
+        border-radius: 999px;
+        background: var(--cad-primary-soft);
+        color: #1d4ed8;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: .78rem;
+        font-weight: 700;
+    }
+
+    .batch-summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: .7rem;
+        margin-bottom: 1rem;
+    }
+
+    .summary-item {
+        min-width: 0;
+        padding: .8rem;
+        border-radius: 13px;
+        background: #f8fafc;
+    }
+
+    .summary-item span {
+        display: block;
+        margin-bottom: .2rem;
+        color: var(--cad-muted);
+        font-size: .74rem;
+    }
+
+    .summary-item strong {
+        display: block;
+        overflow: hidden;
+        font-size: .95rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .submission-list {
+        display: grid;
+        gap: .6rem;
+        max-height: 340px;
+        overflow-y: auto;
+    }
+
+    .submission-item {
+        display: grid;
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        gap: .7rem;
+        align-items: center;
+        padding: .75rem;
+        border: 1px solid var(--cad-border);
+        border-radius: 13px;
+        background: #fff;
+    }
+
+    .submission-icon {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 11px;
+        background: #f1f5f9;
+        color: var(--cad-muted);
+    }
+
+    .submission-item.is-sending .submission-icon {
+        background: #eaf1ff;
+        color: var(--cad-primary);
+    }
+
+    .submission-item.is-success .submission-icon {
+        background: #eaf8ef;
+        color: var(--cad-success);
+    }
+
+    .submission-item.is-error .submission-icon {
+        background: #ffeded;
+        color: var(--cad-danger);
+    }
+
+    .submission-info {
+        min-width: 0;
+    }
+
+    .submission-info strong,
+    .submission-info small {
+        display: block;
+    }
+
+    .submission-info small {
+        overflow: hidden;
+        color: var(--cad-muted);
+        font-size: .74rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .submission-status {
+        color: var(--cad-muted);
+        font-size: .76rem;
+        font-weight: 650;
+        white-space: nowrap;
+    }
+
+    .submission-item.is-success .submission-status {
+        color: var(--cad-success);
+    }
+
+    .submission-item.is-error .submission-status {
+        color: var(--cad-danger);
+    }
+
+    .batch-progress {
+        height: 9px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e8edf3;
+    }
+
+    .batch-progress-bar {
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #2563eb, #60a5fa);
+        transition: width .25s ease;
+    }
+
+    .feedback {
+        display: none;
+        align-items: flex-start;
+        gap: .75rem;
+        margin-bottom: 1rem;
+        padding: .9rem 1rem;
+        border: 1px solid transparent;
+        border-radius: 14px;
+    }
+
+    .feedback.visible {
+        display: flex;
+    }
+
+    .feedback.success {
+        border-color: #bbf7d0;
+        background: #f0fdf4;
+        color: #166534;
+    }
+
+    .feedback.warning {
+        border-color: #fde68a;
+        background: #fffbeb;
+        color: #92400e;
+    }
+
+    .feedback.error {
+        border-color: #fecaca;
+        background: #fff1f2;
+        color: #991b1b;
+    }
+
+    .feedback i {
+        margin-top: .1rem;
+        font-size: 1.15rem;
+    }
+
+    .feedback strong,
+    .feedback span {
+        display: block;
+    }
+
+    .feedback span {
+        margin-top: .15rem;
+        font-size: .85rem;
+    }
+
+    .action-bar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: .7rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--cad-border);
+    }
+
+    .is-hidden {
+        display: none !important;
+    }
+
+    @media (max-width: 991.98px) {
+        .batch-summary {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .page-header {
+            flex-direction: column;
+        }
+
+        .page-header .btn {
+            width: 100%;
+        }
+
+        .action-bar {
+            align-items: stretch;
+            flex-direction: column-reverse;
+        }
+
+        .action-bar .btn {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .cadastro-epi-page {
+            padding: .9rem;
+        }
+
+        .submission-item {
+            grid-template-columns: 38px minmax(0, 1fr);
+        }
+
+        .submission-status {
+            grid-column: 2;
+            white-space: normal;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .batch-progress-bar {
+            transition: none;
+        }
+    }
+</style>
+
+<main class="cadastro-epi-page">
+    <header class="page-header">
+        <div>
+            <h1 class="page-title">Cadastrar novos EPIs</h1>
+            <p class="page-subtitle">
+                Cadastre até 10 equipamentos iguais por vez. O sistema consulta a sequência
+                atual e gera um código exclusivo para cada unidade.
+            </p>
+        </div>
+
+        <button class="btn btn-outline-secondary" type="button" onclick='navegadar("epis")'>
+            <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
+            Voltar aos EPIs
+        </button>
+    </header>
+
+    <div class="feedback" id="cadastro-feedback" role="alert" aria-live="assertive">
+        <i id="feedback-icon" aria-hidden="true"></i>
+        <div>
+            <strong id="feedback-title"></strong>
+            <span id="feedback-message"></span>
+        </div>
+    </div>
+
+    <form id="form-cadastrar-epi" novalidate>
+        <div class="row g-3 g-xl-4">
+            <div class="col-12 col-xl-8">
+                <section class="cad-card p-3 p-lg-4 mb-3 mb-xl-4">
+                    <h2 class="section-title">
+                        <i class="bi bi-shield-plus" aria-hidden="true"></i>
+                        Informações do equipamento
+                    </h2>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-md-7">
+                            <label class="form-label required" for="epi-nome">Nome do EPI</label>
+                            <input
+                                class="form-control"
+                                id="epi-nome"
+                                name="nome"
+                                type="text"
+                                maxlength="255"
+                                placeholder="Ex.: Botina de segurança"
+                                required
+                            >
+                            <span class="helper-text">O mesmo nome será usado em todas as unidades do lote.</span>
+                            <div class="invalid-feedback">Informe o nome do EPI.</div>
+                        </div>
+
+                        <div class="col-12 col-md-5">
+                            <label class="form-label required" for="epi-categoria">Categoria</label>
+                            <input
+                                class="form-control"
+                                id="epi-categoria"
+                                name="categoria"
+                                type="text"
+                                maxlength="255"
+                                list="categorias-epi"
+                                placeholder="Selecione ou digite"
+                                required
+                            >
+                            <datalist id="categorias-epi">
+                                <option value="Proteção da cabeça"></option>
+                                <option value="Proteção dos olhos e face"></option>
+                                <option value="Proteção auditiva"></option>
+                                <option value="Proteção respiratória"></option>
+                                <option value="Proteção das mãos e braços"></option>
+                                <option value="Proteção dos pés e pernas"></option>
+                                <option value="Proteção contra quedas"></option>
+                                <option value="Proteção do corpo"></option>
+                            </datalist>
+                            <div class="invalid-feedback">Informe a categoria.</div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label required" for="epi-fabricante">Fabricante</label>
+                            <input
+                                class="form-control"
+                                id="epi-fabricante"
+                                name="fabricante"
+                                type="text"
+                                maxlength="255"
+                                list="fabricantes-epi"
+                                placeholder="Ex.: 3M"
+                                required
+                            >
+                            <datalist id="fabricantes-epi">
+                                <option value="3M"></option>
+                                <option value="Delta Plus"></option>
+                                <option value="MSA"></option>
+                                <option value="Honeywell"></option>
+                                <option value="Marluvas"></option>
+                                <option value="Bracol"></option>
+                            </datalist>
+                            <div class="invalid-feedback">Informe o fabricante.</div>
+                        </div>
+
+                        <div class="col-12 col-md-3">
+                            <label class="form-label required" for="epi-ca">Possui CA?</label>
+                            <select class="form-select" id="epi-ca" name="ca_certificado" required>
+                                <option value="">Selecione</option>
+                                <option value="sim">Sim</option>
+                                <option value="nao">Não</option>
+                            </select>
+                            <div class="invalid-feedback">Selecione uma opção.</div>
+                        </div>
+
+                        <div class="col-12 col-md-3" id="validade-ca-grupo">
+                            <label class="form-label required" for="epi-validade">Validade do CA</label>
+                            <input
+                                class="form-control"
+                                id="epi-validade"
+                                name="validade_ca"
+                                type="date"
+                                required
+                            >
+                            <div class="invalid-feedback">Informe uma validade futura.</div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label required" for="epi-estoque">ID do estoque</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-box-seam" aria-hidden="true"></i>
+                                </span>
+                                <input
+                                    class="form-control"
+                                    id="epi-estoque"
+                                    name="estoque_id"
+                                    type="number"
+                                    min="1"
+                                    step="1"
+                                    inputmode="numeric"
+                                    placeholder="Ex.: 19"
+                                    required
+                                >
+                            </div>
+                            <span class="helper-text">Informe o estoque ao qual todas as unidades pertencerão.</span>
+                            <div class="invalid-feedback">Informe um ID de estoque válido.</div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label required" for="epi-quantidade">Quantidade de unidades</label>
+                            <div class="quantity-control">
+                                <button class="btn btn-outline-secondary" id="diminuir-quantidade" type="button" aria-label="Diminuir quantidade">
+                                    <i class="bi bi-dash-lg" aria-hidden="true"></i>
+                                </button>
+                                <input
+                                    class="form-control"
+                                    id="epi-quantidade"
+                                    type="number"
+                                    min="1"
+                                    max="10"
+                                    step="1"
+                                    value="1"
+                                    required
+                                >
+                                <button class="btn btn-outline-secondary" id="aumentar-quantidade" type="button" aria-label="Aumentar quantidade">
+                                    <i class="bi bi-plus-lg" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <span class="helper-text">É permitido cadastrar entre 1 e 10 unidades por lote.</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cad-card p-3 p-lg-4">
+                    <h2 class="section-title">
+                        <i class="bi bi-upc-scan" aria-hidden="true"></i>
+                        Códigos automáticos
+                    </h2>
+
+                    <div class="row g-3 align-items-end">
+                        <div class="col-12 col-md-8">
+                            <label class="form-label">Sequência consultada no servidor</label>
+                            <div class="code-status">
+                                <i class="bi bi-database-check fs-5" aria-hidden="true"></i>
+                                <div>
+                                    <strong id="sequencia-status">Consultando...</strong>
+                                    <small id="sequencia-detalhe">Aguardando resposta do servidor.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <button class="btn btn-outline-primary w-100" id="atualizar-codigos" type="button">
+                                <i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>
+                                Atualizar códigos
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="code-preview" id="codigos-preview" aria-live="polite"></div>
+                </section>
+            </div>
+
+            <div class="col-12 col-xl-4">
+                <aside class="cad-card p-3 p-lg-4 mb-3 mb-xl-4">
+                    <h2 class="section-title">
+                        <i class="bi bi-clipboard2-check" aria-hidden="true"></i>
+                        Resumo do lote
+                    </h2>
+
+                    <div class="batch-summary">
+                        <div class="summary-item">
+                            <span>Equipamento</span>
+                            <strong id="resumo-nome">Não informado</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Unidades</span>
+                            <strong id="resumo-quantidade">1</strong>
+                        </div>
+                        <div class="summary-item">
+                            <span>Estoque</span>
+                            <strong id="resumo-estoque">Não informado</strong>
+                        </div>
+                    </div>
+
+                    <div class="batch-progress mb-2" role="progressbar" aria-label="Progresso do cadastro" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progresso-container">
+                        <div class="batch-progress-bar" id="progresso-barra"></div>
+                    </div>
+                    <small class="helper-text mt-0" id="progresso-texto">Nenhum envio iniciado.</small>
+                </aside>
+
+                <aside class="cad-card p-3 p-lg-4">
+                    <h2 class="section-title">
+                        <i class="bi bi-list-check" aria-hidden="true"></i>
+                        Resultado por unidade
+                    </h2>
+
+                    <div class="submission-list" id="resultado-unidades">
+                        <div class="empty-result text-center text-secondary py-3">
+                            <i class="bi bi-hourglass fs-4 d-block mb-2" aria-hidden="true"></i>
+                            Os resultados aparecerão aqui durante o envio.
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div class="action-bar mt-3 mt-xl-4">
+            <button class="btn btn-outline-secondary" id="limpar-formulario" type="button">
+                <i class="bi bi-eraser me-1" aria-hidden="true"></i>
+                Limpar formulário
+            </button>
+            <button class="btn btn-primary px-4" id="enviar-lote" type="submit">
+                <i class="bi bi-cloud-arrow-up me-1" aria-hidden="true"></i>
+                Cadastrar EPI
+            </button>
+        </div>
+    </form>
+</main>
+
+<script>
+    (() => {
+        const endpointSequencia = "/almoxarife/cadastrar-epi/dados";
+        const endpointCadastro = "/cadastrar-epi";
+
+        const elementos = {
+            form: document.getElementById("form-cadastrar-epi"),
+            nome: document.getElementById("epi-nome"),
+            categoria: document.getElementById("epi-categoria"),
+            fabricante: document.getElementById("epi-fabricante"),
+            ca: document.getElementById("epi-ca"),
+            validade: document.getElementById("epi-validade"),
+            validadeGrupo: document.getElementById("validade-ca-grupo"),
+            estoque: document.getElementById("epi-estoque"),
+            quantidade: document.getElementById("epi-quantidade"),
+            preview: document.getElementById("codigos-preview"),
+            sequenciaStatus: document.getElementById("sequencia-status"),
+            sequenciaDetalhe: document.getElementById("sequencia-detalhe"),
+            feedback: document.getElementById("cadastro-feedback"),
+            feedbackIcon: document.getElementById("feedback-icon"),
+            feedbackTitle: document.getElementById("feedback-title"),
+            feedbackMessage: document.getElementById("feedback-message"),
+            resultados: document.getElementById("resultado-unidades"),
+            progresso: document.getElementById("progresso-barra"),
+            progressoContainer: document.getElementById("progresso-container"),
+            progressoTexto: document.getElementById("progresso-texto"),
+            enviar: document.getElementById("enviar-lote"),
+            atualizar: document.getElementById("atualizar-codigos"),
+            limpar: document.getElementById("limpar-formulario")
+        };
+
+        const estado = {
+            proximoNumero: null,
+            enviando: false
+        };
+
+        function limitarQuantidade(valor) {
+            const numero = Math.trunc(Number(valor));
+            if (!Number.isFinite(numero)) return 1;
+            return Math.min(Math.max(numero, 1), 10);
+        }
+
+        function formatarCodigo(numero) {
+            return `EPI-${String(numero).padStart(4, "0")}`;
+        }
+
+        function quantidadeAtual() {
+            return limitarQuantidade(elementos.quantidade.value);
+        }
+
+        function gerarCodigos() {
+            if (!Number.isInteger(estado.proximoNumero) || estado.proximoNumero < 0) {
+                return [];
+            }
+
+            return Array.from(
+                { length: quantidadeAtual() },
+                (_, indice) => formatarCodigo(estado.proximoNumero + indice)
+            );
+        }
+
+        function atualizarPreview() {
+            elementos.quantidade.value = quantidadeAtual();
+            elementos.preview.replaceChildren();
+
+            const codigos = gerarCodigos();
+            if (codigos.length === 0) {
+                const aviso = document.createElement("span");
+                aviso.className = "text-secondary small";
+                aviso.textContent = "Os códigos aparecerão após a consulta ao servidor.";
+                elementos.preview.appendChild(aviso);
+            } else {
+                codigos.forEach(codigo => {
+                    const chip = document.createElement("span");
+                    chip.className = "code-chip";
+                    chip.textContent = codigo;
+                    elementos.preview.appendChild(chip);
+                });
+            }
+
+            document.getElementById("resumo-nome").textContent =
+                elementos.nome.value.trim() || "Não informado";
+            document.getElementById("resumo-quantidade").textContent =
+                String(quantidadeAtual());
+            document.getElementById("resumo-estoque").textContent =
+                elementos.estoque.value ? `#${elementos.estoque.value}` : "Não informado";
+
+            elementos.enviar.innerHTML = quantidadeAtual() === 1
+                ? '<i class="bi bi-cloud-arrow-up me-1" aria-hidden="true"></i>Cadastrar EPI'
+                : `<i class="bi bi-cloud-arrow-up me-1" aria-hidden="true"></i>
+                   Cadastrar ${quantidadeAtual()} EPIs`;
+        }
+
+        function esconderFeedback() {
+            elementos.feedback.className = "feedback";
+        }
+
+        function mostrarFeedback(tipo, titulo, mensagem) {
+            const icones = {
+                success: "bi bi-check-circle-fill",
+                warning: "bi bi-exclamation-triangle-fill",
+                error: "bi bi-x-circle-fill"
+            };
+
+            elementos.feedback.className = `feedback visible ${tipo}`;
+            elementos.feedbackIcon.className = icones[tipo];
+            elementos.feedbackTitle.textContent = titulo;
+            elementos.feedbackMessage.textContent = mensagem;
+            elementos.feedback.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+
+        async function consultarSequencia() {
+            elementos.atualizar.disabled = true;
+            elementos.sequenciaStatus.textContent = "Consultando...";
+            elementos.sequenciaDetalhe.textContent = "Buscando a sequência mais recente.";
+            estado.proximoNumero = null;
+            atualizarPreview();
+
+            try {
+                const resposta = await fetch(endpointSequencia, {
+                    method: "GET",
+                    credentials: "same-origin",
+                    headers: { "Accept": "application/json, text/plain" },
+                    cache: "no-store"
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro HTTP ${resposta.status}`);
+                }
+
+                const conteudo = (await resposta.text()).trim();
+                const proximoNumero = Number(conteudo);
+
+                if (!Number.isInteger(proximoNumero) || proximoNumero < 0) {
+                    throw new Error("A rota não retornou um número inteiro válido.");
+                }
+
+                estado.proximoNumero = proximoNumero;
+                elementos.sequenciaStatus.textContent =
+                    `Próximo código: ${formatarCodigo(proximoNumero)}`;
+                elementos.sequenciaDetalhe.textContent =
+                    "A sequência será consultada novamente antes do envio.";
+                atualizarPreview();
+                return proximoNumero;
+            } catch (erro) {
+                console.error("Erro ao consultar a sequência:", erro);
+                elementos.sequenciaStatus.textContent = "Sequência indisponível";
+                elementos.sequenciaDetalhe.textContent =
+                    "Não será possível cadastrar enquanto a consulta falhar.";
+                mostrarFeedback(
+                    "error",
+                    "Não foi possível gerar os códigos",
+                    "Confira a conexão e tente atualizar os códigos novamente."
+                );
+                throw erro;
+            } finally {
+                elementos.atualizar.disabled = estado.enviando;
+            }
+        }
+
+        function atualizarCa() {
+            const possuiCa = elementos.ca.value === "sim";
+            elementos.validade.disabled = !possuiCa;
+            elementos.validade.required = possuiCa;
+            elementos.validadeGrupo.classList.toggle("opacity-50", !possuiCa);
+
+            if (!possuiCa) {
+                elementos.validade.value = "";
+                elementos.validade.classList.remove("is-invalid");
+            }
+        }
+
+        function validarFormulario() {
+            elementos.quantidade.value = quantidadeAtual();
+            elementos.form.classList.add("was-validated");
+
+            if (elementos.ca.value === "sim") {
+                const hoje = new Date();
+                hoje.setHours(0, 0, 0, 0);
+                const validade = elementos.validade.value
+                    ? new Date(`${elementos.validade.value}T00:00:00`)
+                    : null;
+
+                if (!validade || validade < hoje) {
+                    elementos.validade.setCustomValidity("A validade deve ser atual ou futura.");
+                } else {
+                    elementos.validade.setCustomValidity("");
+                }
+            } else {
+                elementos.validade.setCustomValidity("");
+            }
+
+            return elementos.form.checkValidity();
+        }
+
+        function montarDadosBase() {
+            return {
+                nome: elementos.nome.value.trim(),
+                categoria: elementos.categoria.value.trim(),
+                fabricante: elementos.fabricante.value.trim(),
+                validade_ca: elementos.ca.value === "sim" ? elementos.validade.value : null,
+                ca_certificado: elementos.ca.value,
+                estoque_id: Number(elementos.estoque.value)
+            };
+        }
+
+        function prepararResultados(codigos) {
+            elementos.resultados.replaceChildren();
+
+            return codigos.map((codigo, indice) => {
+                const item = document.createElement("div");
+                item.className = "submission-item";
+                item.innerHTML = `
+                    <div class="submission-icon">
+                        <i class="bi bi-hourglass" aria-hidden="true"></i>
+                    </div>
+                    <div class="submission-info">
+                        <strong>Unidade ${indice + 1} · ${codigo}</strong>
+                        <small>Aguardando envio</small>
+                    </div>
+                    <span class="submission-status">Pendente</span>
+                `;
+                elementos.resultados.appendChild(item);
+                return item;
+            });
+        }
+
+        function atualizarResultado(item, tipo, mensagem) {
+            const icones = {
+                sending: "bi bi-arrow-repeat",
+                success: "bi bi-check-lg",
+                error: "bi bi-x-lg"
+            };
+            const rotulos = {
+                sending: "Enviando",
+                success: "Salvo",
+                error: "Falhou"
+            };
+
+            item.className = `submission-item is-${tipo}`;
+            item.querySelector(".submission-icon i").className = icones[tipo];
+            item.querySelector(".submission-info small").textContent = mensagem;
+            item.querySelector(".submission-status").textContent = rotulos[tipo];
+        }
+
+        function atualizarProgresso(concluidos, total) {
+            const percentual = total > 0 ? Math.round((concluidos / total) * 100) : 0;
+            elementos.progresso.style.width = `${percentual}%`;
+            elementos.progressoContainer.setAttribute("aria-valuenow", String(percentual));
+            elementos.progressoTexto.textContent =
+                `${concluidos} de ${total} envio(s) concluído(s).`;
+        }
+
+        async function extrairMensagemErro(resposta) {
+            try {
+                const tipo = resposta.headers.get("content-type") || "";
+                if (tipo.includes("application/json")) {
+                    const dados = await resposta.json();
+                    return dados.erro || dados.mensagem || dados.message ||
+                        `Erro HTTP ${resposta.status}`;
+                }
+                const textoResposta = (await resposta.text()).trim();
+                return textoResposta || `Erro HTTP ${resposta.status}`;
+            } catch {
+                return `Erro HTTP ${resposta.status}`;
+            }
+        }
+
+        async function enviarUnidade(dados) {
+            const resposta = await fetch(endpointCadastro, {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dados)
+            });
+
+            if (!resposta.ok) {
+                throw new Error(await extrairMensagemErro(resposta));
+            }
+        }
+
+        function definirEnviando(enviando) {
+            estado.enviando = enviando;
+            elementos.enviar.disabled = enviando;
+            elementos.atualizar.disabled = enviando;
+            elementos.limpar.disabled = enviando;
+            elementos.form.querySelectorAll("input, select, button").forEach(campo => {
+                if (
+                    campo !== elementos.enviar &&
+                    campo !== elementos.atualizar &&
+                    campo !== elementos.limpar
+                ) {
+                    campo.disabled = enviando;
+                }
+            });
+
+            if (!enviando) {
+                elementos.form.querySelectorAll("input, select, button").forEach(campo => {
+                    campo.disabled = false;
+                });
+                atualizarCa();
+            }
+        }
+
+        async function enviarLote(evento) {
+            evento.preventDefault();
+            esconderFeedback();
+
+            if (estado.enviando || !validarFormulario()) {
+                if (!estado.enviando) {
+                    mostrarFeedback(
+                        "error",
+                        "Revise o formulário",
+                        "Preencha corretamente todos os campos obrigatórios."
+                    );
+                }
+                return;
+            }
+
+            definirEnviando(true);
+            elementos.enviar.innerHTML =
+                '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Preparando lote...';
+
+            try {
+                await consultarSequencia();
+            } catch {
+                definirEnviando(false);
+                atualizarPreview();
+                return;
+            }
+
+            const codigos = gerarCodigos();
+            const dadosBase = montarDadosBase();
+            const itens = prepararResultados(codigos);
+            const falhas = [];
+            let sucessos = 0;
+
+            atualizarProgresso(0, codigos.length);
+
+            for (let indice = 0; indice < codigos.length; indice++) {
+                const codigo = codigos[indice];
+                const item = itens[indice];
+                atualizarResultado(item, "sending", "Enviando para o servidor...");
+
+                try {
+                    await enviarUnidade({ ...dadosBase, codigo });
+                    sucessos++;
+                    atualizarResultado(item, "success", "Cadastro concluído com sucesso.");
+                } catch (erro) {
+                    console.error(`Falha ao cadastrar ${codigo}:`, erro);
+                    falhas.push({ codigo, mensagem: erro.message });
+                    atualizarResultado(item, "error", erro.message || "Erro desconhecido.");
+                }
+
+                atualizarProgresso(indice + 1, codigos.length);
+            }
+
+            if (falhas.length === 0) {
+                mostrarFeedback(
+                    "success",
+                    "Cadastro concluído",
+                    `${sucessos} EPI(s) cadastrado(s) com sucesso.`
+                );
+                elementos.form.reset();
+                elementos.form.classList.remove("was-validated");
+                elementos.quantidade.value = "1";
+                atualizarCa();
+            } else if (sucessos > 0) {
+                const codigosFalhos = falhas.map(falha => falha.codigo).join(", ");
+                mostrarFeedback(
+                    "warning",
+                    "Lote concluído parcialmente",
+                    `${sucessos} salvo(s) e ${falhas.length} com falha: ${codigosFalhos}. Confira os detalhes ao lado.`
+                );
+            } else {
+                mostrarFeedback(
+                    "error",
+                    "Nenhum EPI foi cadastrado",
+                    `Os ${falhas.length} envio(s) falharam. Confira o motivo de cada unidade.`
+                );
+            }
+
+            definirEnviando(false);
+
+            try {
+                await consultarSequencia();
+            } catch {
+                // A notificação da consulta já informa a falha.
+            }
+
+            atualizarPreview();
+        }
+
+        function limparFormulario() {
+            if (estado.enviando) return;
+
+            elementos.form.reset();
+            elementos.form.classList.remove("was-validated");
+            elementos.quantidade.value = "1";
+            elementos.resultados.innerHTML = `
+                <div class="empty-result text-center text-secondary py-3">
+                    <i class="bi bi-hourglass fs-4 d-block mb-2" aria-hidden="true"></i>
+                    Os resultados aparecerão aqui durante o envio.
+                </div>
+            `;
+            elementos.progresso.style.width = "0%";
+            elementos.progressoContainer.setAttribute("aria-valuenow", "0");
+            elementos.progressoTexto.textContent = "Nenhum envio iniciado.";
+            esconderFeedback();
+            atualizarCa();
+            atualizarPreview();
+        }
+
+        const hoje = new Date();
+        const hojeLocal = new Date(hoje.getTime() - hoje.getTimezoneOffset() * 60000)
+            .toISOString()
+            .slice(0, 10);
+        elementos.validade.min = hojeLocal;
+
+        elementos.form.addEventListener("submit", enviarLote);
+        elementos.atualizar.addEventListener("click", async () => {
+            esconderFeedback();
+            try {
+                await consultarSequencia();
+            } catch {
+                // A função já exibe a notificação.
+            }
+        });
+        elementos.limpar.addEventListener("click", limparFormulario);
+        elementos.ca.addEventListener("change", atualizarCa);
+        elementos.quantidade.addEventListener("input", atualizarPreview);
+        elementos.quantidade.addEventListener("change", atualizarPreview);
+        elementos.nome.addEventListener("input", atualizarPreview);
+        elementos.estoque.addEventListener("input", atualizarPreview);
+
+        document.getElementById("diminuir-quantidade").addEventListener("click", () => {
+            elementos.quantidade.value = Math.max(quantidadeAtual() - 1, 1);
+            atualizarPreview();
+        });
+
+        document.getElementById("aumentar-quantidade").addEventListener("click", () => {
+            elementos.quantidade.value = Math.min(quantidadeAtual() + 1, 10);
+            atualizarPreview();
+        });
+
+        atualizarCa();
+        atualizarPreview();
+        consultarSequencia().catch(() => {});
+    })();
+</script>

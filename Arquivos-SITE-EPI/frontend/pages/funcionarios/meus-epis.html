@@ -1,0 +1,438 @@
+<style>
+body{
+    background:#EEF4F8;
+}
+
+.page-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
+.epi-card{
+
+    border:none;
+    border-radius:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+
+    transition:.25s;
+}
+
+.epi-card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.epi-icon{
+
+    width:70px;
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:2rem;
+}
+
+.info-title{
+
+    font-size:.78rem;
+    color:#6B7280;
+    text-transform:uppercase;
+}
+
+.info-value{
+
+    font-weight:600;
+    color:#1F2937;
+}
+
+.badge-status{
+
+    font-size:.8rem;
+    padding:.55rem .8rem;
+}
+
+.filtro{
+
+    border-radius:12px;
+}
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- Cabeçalho -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title">
+                Meus EPIs
+            </h2>
+
+            <p class="page-subtitle mb-0">
+                Consulte todos os equipamentos sob sua responsabilidade.
+            </p>
+
+        </div>
+
+        <div style="width:300px">
+
+            <input
+                type="text"
+                class="form-control filtro"
+                placeholder="Pesquisar EPI...">
+
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+
+    <div class="row g-4">
+
+        <!-- Capacete -->
+
+        <div class="col-lg-4">
+
+            <div class="card epi-card">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div class="epi-icon bg-primary text-white">
+
+                            <i class="bi bi-shield-check"></i>
+
+                        </div>
+
+                        <span class="badge bg-success badge-status">
+
+                            Em uso
+
+                        </span>
+
+                    </div>
+
+                    <h4 class="fw-bold mt-4">
+
+                        Capacete MSA V-Gard
+
+                    </h4>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-6 mb-3">
+
+                            <div class="info-title">
+
+                                Patrimônio
+
+                            </div>
+
+                            <div class="info-value">
+
+                                #EPI00125
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-6 mb-3">
+
+                            <div class="info-title">
+
+                                Cor
+
+                            </div>
+
+                            <div class="info-value">
+
+                                Branco
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="info-title">
+
+                                Retirada
+
+                            </div>
+
+                            <div class="info-value">
+
+                                12/03/2026
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="info-title">
+
+                                Devolver até
+
+                            </div>
+
+                            <div class="info-value text-danger">
+
+                                12/03/2027
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4">
+
+                        <div class="d-flex justify-content-between">
+
+                            <small class="text-secondary">
+
+                                Vida útil
+
+                            </small>
+
+                            <small class="fw-bold">
+
+                                78%
+
+                            </small>
+
+                        </div>
+
+                        <div class="progress mt-2">
+
+                            <div class="progress-bar bg-success"
+                                 style="width:78%">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-outline-primary w-100 mt-4">
+
+                        Ver detalhes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Luvas -->
+
+        <div class="col-lg-4">
+
+            <div class="card epi-card">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div class="epi-icon bg-warning text-white">
+
+                            <i class="bi bi-hand-index-thumb"></i>
+
+                        </div>
+
+                        <span class="badge bg-warning text-dark badge-status">
+
+                            Troca próxima
+
+                        </span>
+
+                    </div>
+
+                    <h4 class="fw-bold mt-4">
+
+                        Luvas de Raspa
+
+                    </h4>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-6 mb-3">
+
+                            <div class="info-title">
+                                Tamanho
+                            </div>
+
+                            <div class="info-value">
+                                G
+                            </div>
+
+                        </div>
+
+                        <div class="col-6 mb-3">
+
+                            <div class="info-title">
+                                Material
+                            </div>
+
+                            <div class="info-value">
+                                Raspa
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="info-title">
+                                Retirada
+                            </div>
+
+                            <div class="info-value">
+                                20/05/2026
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="info-title">
+                                Troca
+                            </div>
+
+                            <div class="info-value text-warning">
+                                20/08/2026
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-outline-primary w-100 mt-4">
+
+                        Ver detalhes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Botina -->
+
+        <div class="col-lg-4">
+
+            <div class="card epi-card">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div class="epi-icon bg-success text-white">
+
+                            <i class="bi bi-person-standing"></i>
+
+                        </div>
+
+                        <span class="badge bg-success badge-status">
+
+                            Em uso
+
+                        </span>
+
+                    </div>
+
+                    <h4 class="fw-bold mt-4">
+
+                        Botina de Segurança
+
+                    </h4>
+
+                    <hr>
+
+                    <div class="row">
+
+                        <div class="col-6 mb-3">
+
+                            <div class="info-title">
+                                Numeração
+                            </div>
+
+                            <div class="info-value">
+                                42
+                            </div>
+
+                        </div>
+
+                        <div class="col-6 mb-3">
+
+                            <div class="info-title">
+                                CA
+                            </div>
+
+                            <div class="info-value">
+                                45896
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="info-title">
+                                Retirada
+                            </div>
+
+                            <div class="info-value">
+                                02/02/2026
+                            </div>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <div class="info-title">
+                                Troca
+                            </div>
+
+                            <div class="info-value text-danger">
+                                02/02/2027
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-outline-primary w-100 mt-4">
+
+                        Ver detalhes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

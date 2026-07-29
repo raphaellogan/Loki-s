@@ -1,0 +1,2 @@
+1:  0000-create_db_inf07sst_and_tables.sql
+2:  2026_07_18-nova_tabela_sessao.sql

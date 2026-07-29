@@ -1,0 +1,438 @@
+<style>
+body{
+    background:#EEF4F8;
+}
+
+.page-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.form-control,
+.form-select{
+    border-radius:10px;
+}
+
+.btn{
+    border-radius:10px;
+}
+
+.table td,
+.table th{
+    vertical-align:middle;
+}
+
+.table tbody tr:hover{
+    background:#F8FAFC;
+}
+</style>
+
+<div class="container-fluid p-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title">
+
+                Gerenciamento de Estoque
+
+            </h2>
+
+            <p class="page-subtitle mb-0">
+
+                Cadastre novos EPIs ou atualize equipamentos existentes.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        <!-- Cadastro -->
+
+        <div class="col-lg-5">
+
+            <div class="card dashboard-card">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        Novo Tipo de EPI
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-3">
+
+                        <label>Nome do EPI</label>
+
+                        <input class="form-control">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Categoria</label>
+
+                        <select class="form-select">
+
+                            <option>Capacete</option>
+                            <option>Botina</option>
+                            <option>Óculos</option>
+                            <option>Luvas</option>
+                            <option>Respirador</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Marca</label>
+
+                        <input class="form-control">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Certificado de Aprovação (CA)</label>
+
+                        <input class="form-control">
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col">
+
+                            <label>Quantidade Inicial</label>
+
+                            <input type="number" class="form-control">
+
+                        </div>
+
+                        <div class="col">
+
+                            <label>Estoque Mínimo</label>
+
+                            <input type="number" class="form-control">
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+
+                        <label>Fornecedor</label>
+
+                        <input class="form-control">
+
+                    </div>
+
+                    <div class="mt-3">
+
+                        <label>Descrição</label>
+
+                        <textarea class="form-control" rows="4"></textarea>
+
+                    </div>
+
+                    <div class="mt-4 d-grid">
+
+                        <button class="btn btn-primary">
+
+                            <i class="bi bi-plus-circle"></i>
+
+                            Cadastrar Novo EPI
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Atualização -->
+
+        <div class="col-lg-7">
+
+            <div class="card dashboard-card">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        Atualizar Estoque
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-8">
+
+                            <select class="form-select">
+
+                                <option>Capacete MSA V-Gard</option>
+                                <option>Botina Bracol</option>
+                                <option>Luva de Raspa</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <button class="btn btn-outline-primary w-100">
+
+                                Carregar
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <table class="table">
+
+                        <tbody>
+
+                            <tr>
+
+                                <th width="35%">
+
+                                    Marca
+
+                                </th>
+
+                                <td>
+
+                                    <input class="form-control" value="MSA">
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+
+                                    Quantidade Atual
+
+                                </th>
+
+                                <td>
+
+                                    <input type="number" class="form-control" value="42">
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+
+                                    Adicionar Unidades
+
+                                </th>
+
+                                <td>
+
+                                    <input type="number" class="form-control" placeholder="Ex.: 100">
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+
+                                    Estoque Mínimo
+
+                                </th>
+
+                                <td>
+
+                                    <input type="number" class="form-control" value="20">
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+
+                                    Fornecedor
+
+                                </th>
+
+                                <td>
+
+                                    <input class="form-control" value="MSA Brasil">
+
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <th>
+
+                                    Situação
+
+                                </th>
+
+                                <td>
+
+                                    <select class="form-select">
+
+                                        <option>Ativo</option>
+
+                                        <option>Inativo</option>
+
+                                    </select>
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+
+                        <a src="alterar-estoque.html" onclick="navegar(event, 'alterar-estoque')" class="btn btn-outline-danger">
+
+                            Inativar EPI
+
+                        </a>
+
+                        <a src="alterar-estoque.html" onclick="navegar(event, 'alterar-estoque')" class="btn btn-success">
+
+                            Salvar Alterações
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Resumo -->
+
+            <div class="card dashboard-card mt-4">
+
+                <div class="card-body">
+
+                    <h5 class="mb-4">
+
+                        Resumo do Estoque
+
+                    </h5>
+
+                    <div class="row text-center">
+
+                        <div class="col">
+
+                            <h3 class="text-primary">
+
+                                42
+
+                            </h3>
+
+                            <small>
+
+                                Em Estoque
+
+                            </small>
+
+                        </div>
+
+                        <div class="col">
+
+                            <h3 class="text-success">
+
+                                158
+
+                            </h3>
+
+                            <small>
+
+                                Emprestados
+
+                            </small>
+
+                        </div>
+
+                        <div class="col">
+
+                            <h3 class="text-warning">
+
+                                20
+
+                            </h3>
+
+                            <small>
+
+                                Estoque Mínimo
+
+                            </small>
+
+                        </div>
+
+                        <div class="col">
+
+                            <h3 class="text-danger">
+
+                                3
+
+                            </h3>
+
+                            <small>
+
+                                Manutenção
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

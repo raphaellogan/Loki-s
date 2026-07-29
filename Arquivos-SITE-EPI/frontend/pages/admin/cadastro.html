@@ -1,0 +1,464 @@
+
+
+<style>
+
+    body{
+
+        background:linear-gradient(135deg,#0F172A,#1E3A8A);
+        min-height:100vh;
+
+    }
+
+    .cadastro-card{
+
+        max-width:920px;
+        width:100%;
+        border:none;
+        border-radius:22px;
+        overflow:hidden;
+        box-shadow:0 25px 60px rgba(0,0,0,.25);
+
+    }
+
+    .topo{
+
+        background:linear-gradient(135deg,#0F3D91,#2563EB);
+        color:white;
+        padding:40px;
+
+    }
+
+    .logo{
+
+        width:70px;
+        height:70px;
+
+        border-radius:18px;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        background:rgba(255,255,255,.12);
+
+        font-size:34px;
+
+    }
+
+    .card-body{
+
+        padding:40px;
+
+    }
+
+    .form-label{
+
+        font-weight:600;
+        color:#334155;
+
+    }
+
+    .input-group-text{
+
+        background:#F8FAFC;
+        border:1px solid #d8dee8;
+
+    }
+
+    .form-control,
+    .form-select{
+
+        height:48px;
+
+        border:1px solid #d8dee8;
+
+    }
+
+    .form-control:focus,
+    .form-select:focus{
+
+        border-color:#2563EB;
+
+        box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
+
+    }
+
+    .btn-primary{
+
+        background:#2563EB;
+        border:none;
+        height:52px;
+        border-radius:12px;
+        font-weight:600;
+        font-size:17px;
+
+    }
+
+    .btn-primary:hover{
+
+        background:#1D4ED8;
+
+    }
+
+    @media(max-width:768px){
+
+        .topo{
+
+            text-align:center;
+
+        }
+
+        .logo{
+
+            margin:auto auto 20px;
+
+        }
+
+        .card-body{
+
+            padding:25px;
+
+        }
+
+    }
+
+</style>
+
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-center">
+
+        <div class="card cadastro-card">
+
+            <div class="topo">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-auto">
+
+                        <div class="logo">
+
+                            <i class="bi bi-shield-check"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+
+                        <h2 class="fw-bold mb-1">
+                            OrganizeEPI
+                        </h2>
+
+                        <p class="mb-1 fs-5">
+                            Cadastro de Usuário
+                        </p>
+
+                        <small class="text-white-50">
+                            Preencha as informações para criar um novo acesso ao sistema.
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <form id="formCadastro">
+
+                    <div class="row g-4">
+
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Nome Completo
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-person"></i>
+                                </span>
+
+                                <input
+                                    id="nome"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Digite o nome completo">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                CPF
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-person-vcard"></i>
+                                </span>
+
+                                <input
+                                    id="cpf"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="000.000.000-00">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Telefone
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-telephone"></i>
+                                </span>
+
+                                <input
+                                    id="telefone"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="(31) 99999-9999">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                E-mail
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control"
+                                    placeholder="email@empresa.com">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Setor
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-building"></i>
+                                </span>
+
+                                <select id="setor" class="form-select">
+
+                                    <option selected>
+                                        Selecione...
+                                    </option>
+
+                                    <option>
+                                        Produção
+                                    </option>
+
+                                    <option>
+                                        RH
+                                    </option>
+
+                                    <option>
+                                        Administrativo
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Cargo
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-briefcase"></i>
+                                </span>
+
+                                <input
+                                    id="cargo"
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Cargo">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Senha
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock"></i>
+                                </span>
+
+                                <input
+                                    id="senha"
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="********">
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Confirmar Senha
+                            </label>
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+                                    <i class="bi bi-lock-fill"></i>
+                                </span>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="********">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                     <div class="mb-3 mt-3">
+                        <label class="form-label">Data de admissão</label>
+                        <input id="data_admissao" type="date" class="form-control">
+                    </div>
+
+
+                    <div class="d-grid mt-5">
+
+                        <button class="btn btn-primary" type="submit">
+
+                            <i class="bi bi-person-plus-fill me-2"></i>
+
+                            Cadastrar Usuário
+
+                        </button>
+
+                    </div>
+                   
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    (() => {
+        document
+        .getElementById("formCadastro")
+        .addEventListener("submit", cadastrarUsuario);
+
+        async function cadastrarUsuario(e) {
+        
+            e.preventDefault();
+        
+            const dados = {
+            
+                nome: document.getElementById("nome").value.trim(),
+            
+                email: document.getElementById("email").value.trim(),
+            
+                senha: document.getElementById("senha").value,
+            
+                cpf: document.getElementById("cpf").value.trim(),
+            
+                telefone: document.getElementById("telefone").value.trim(),
+            
+                setor: document.getElementById("setor").value,
+            
+                cargo: document.getElementById("cargo").value.trim(),
+            
+                data_admissao: document.getElementById("data_admissao").value,
+            
+                perfil: "funcionario"
+            
+            };
+        
+            try {
+            
+                const resposta = await fetch("/registrar", {
+                
+                    method: "POST",
+                
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                
+                    body: JSON.stringify(dados)
+                
+                });
+            
+                const resultado = await resposta.json();
+            
+                if (resposta.ok) {
+                
+                    alert("Usuário cadastrado com sucesso!");
+                
+                    document.getElementById("formCadastro").reset();
+                
+                } else {
+                
+                    alert(resultado.erro || "Erro ao cadastrar usuário.");
+                
+                }
+            
+            } catch (erro) {
+            
+                console.error(erro);
+            
+                alert("Erro ao conectar com o servidor.");
+            
+            }
+        
+        }
+    })();
+</script>

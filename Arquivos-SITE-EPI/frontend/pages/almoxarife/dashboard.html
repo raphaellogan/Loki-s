@@ -1,0 +1,693 @@
+<style>
+    :root {
+        --dashboard-bg: #edf4f8;
+        --card-bg: #ffffff;
+        --text-primary: #172033;
+        --text-secondary: #667085;
+        --border-color: #e5eaf0;
+        --primary: #2563eb;
+        --primary-soft: #eaf1ff;
+        --success: #16a34a;
+        --success-soft: #eaf8ef;
+        --warning: #d97706;
+        --warning-soft: #fff5df;
+        --danger: #dc2626;
+        --danger-soft: #ffeded;
+        --info: #0891b2;
+        --info-soft: #e8f8fc;
+        --purple: #7c3aed;
+        --purple-soft: #f2edff;
+    }
+
+    body {
+        background: var(--dashboard-bg);
+        color: var(--text-primary);
+    }
+
+    .dashboard-container {
+        width: 100%;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: clamp(1rem, 2.5vw, 2rem);
+    }
+
+    .dashboard-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .dashboard-title {
+        margin: 0 0 .35rem;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 750;
+        letter-spacing: -.025em;
+    }
+
+    .dashboard-subtitle {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: clamp(.9rem, 1.5vw, 1rem);
+    }
+
+    .dashboard-update {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: .55rem;
+        min-height: 42px;
+        padding: .65rem .9rem;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        background: var(--card-bg);
+        color: var(--text-secondary);
+        font-size: .85rem;
+        box-shadow: 0 4px 12px rgba(16, 24, 40, .04);
+    }
+
+    .dashboard-update i {
+        color: var(--primary);
+    }
+
+    .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .metric-card,
+    .summary-card {
+        border: 1px solid rgba(229, 234, 240, .9);
+        border-radius: 18px;
+        background: var(--card-bg);
+        box-shadow: 0 8px 24px rgba(16, 24, 40, .055);
+    }
+
+    .metric-card {
+        position: relative;
+        min-width: 0;
+        padding: 1.25rem;
+        overflow: hidden;
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(16, 24, 40, .09);
+    }
+
+    .metric-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 5px;
+        height: 100%;
+        background: var(--metric-color);
+    }
+
+    .metric-card__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: .75rem;
+    }
+
+    .metric-card__label {
+        display: block;
+        margin-bottom: .45rem;
+        color: var(--text-secondary);
+        font-size: .86rem;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .metric-card__value {
+        margin: 0;
+        font-size: clamp(1.75rem, 4vw, 2.35rem);
+        font-weight: 750;
+        line-height: 1;
+        letter-spacing: -.035em;
+    }
+
+    .metric-card__description {
+        margin: 1rem 0 0;
+        color: var(--text-secondary);
+        font-size: .8rem;
+        line-height: 1.45;
+    }
+
+    .metric-icon {
+        display: grid;
+        flex: 0 0 52px;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border-radius: 15px;
+        background: var(--metric-soft);
+        color: var(--metric-color);
+        font-size: 1.45rem;
+    }
+
+    .metric-primary {
+        --metric-color: var(--primary);
+        --metric-soft: var(--primary-soft);
+    }
+
+    .metric-purple {
+        --metric-color: var(--purple);
+        --metric-soft: var(--purple-soft);
+    }
+
+    .metric-info {
+        --metric-color: var(--info);
+        --metric-soft: var(--info-soft);
+    }
+
+    .metric-warning {
+        --metric-color: var(--warning);
+        --metric-soft: var(--warning-soft);
+    }
+
+    .metric-danger {
+        --metric-color: var(--danger);
+        --metric-soft: var(--danger-soft);
+    }
+
+    .metric-success {
+        --metric-color: var(--success);
+        --metric-soft: var(--success-soft);
+    }
+
+    .dashboard-lower-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(280px, .8fr);
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .summary-card {
+        padding: 1.25rem;
+    }
+
+    .section-title {
+        margin: 0 0 1rem;
+        font-size: 1rem;
+        font-weight: 700;
+    }
+
+    .stock-summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: .75rem;
+        margin-bottom: 1rem;
+    }
+
+    .stock-item {
+        min-width: 0;
+        padding: .9rem;
+        border-radius: 14px;
+        background: #f7f9fc;
+    }
+
+    .stock-item small {
+        display: block;
+        margin-bottom: .3rem;
+        color: var(--text-secondary);
+        font-size: .78rem;
+    }
+
+    .stock-item strong {
+        display: block;
+        overflow: hidden;
+        font-size: 1.15rem;
+        text-overflow: ellipsis;
+    }
+
+    .progress-track {
+        width: 100%;
+        height: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #e8edf3;
+    }
+
+    .progress-fill {
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #2563eb, #60a5fa);
+        transition: width .45s ease;
+    }
+
+    .progress-caption {
+        display: flex;
+        justify-content: space-between;
+        gap: .75rem;
+        margin-top: .6rem;
+        color: var(--text-secondary);
+        font-size: .78rem;
+    }
+
+    .attention-list {
+        display: grid;
+        gap: .7rem;
+    }
+
+    .attention-item {
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+        padding: .8rem;
+        border-radius: 13px;
+        background: #f8fafc;
+    }
+
+    .attention-item__icon {
+        display: grid;
+        flex: 0 0 38px;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border-radius: 11px;
+        font-size: 1rem;
+    }
+
+    .attention-item__content {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .attention-item__content span {
+        display: block;
+        color: var(--text-secondary);
+        font-size: .77rem;
+    }
+
+    .attention-item__content strong {
+        display: block;
+        font-size: .92rem;
+    }
+
+    .attention-item__number {
+        font-size: 1.2rem;
+        font-weight: 750;
+    }
+
+    .loading-value {
+        display: inline-block;
+        width: 58px;
+        height: 32px;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #edf0f4 25%, #f8fafc 50%, #edf0f4 75%);
+        background-size: 200% 100%;
+        animation: dashboard-loading 1.25s infinite;
+    }
+
+    .dashboard-alert {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        padding: .85rem 1rem;
+        border: 1px solid #fecaca;
+        border-radius: 13px;
+        background: #fff1f2;
+        color: #991b1b;
+        font-size: .9rem;
+    }
+
+    .dashboard-alert.is-visible {
+        display: flex;
+    }
+
+    @keyframes dashboard-loading {
+        to {
+            background-position: -200% 0;
+        }
+    }
+
+    @media (max-width: 991.98px) {
+        .metrics-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .dashboard-lower-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .dashboard-container {
+            padding: .9rem;
+        }
+
+        .dashboard-header {
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-update {
+            width: 100%;
+            margin-top: .85rem;
+            justify-content: center;
+        }
+
+        .metrics-grid {
+            grid-template-columns: 1fr;
+            gap: .8rem;
+        }
+
+        .metric-card {
+            padding: 1rem;
+        }
+
+        .metric-card__description {
+            margin-top: .75rem;
+        }
+
+        .stock-summary {
+            grid-template-columns: 1fr;
+        }
+
+        .summary-card {
+            padding: 1rem;
+        }
+
+        .progress-caption {
+            flex-direction: column;
+            gap: .2rem;
+        }
+
+        .dashboard-alert {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .metric-card,
+        .progress-fill {
+            transition: none;
+        }
+
+        .loading-value {
+            animation: none;
+        }
+    }
+</style>
+
+<section class="dashboard-container" aria-labelledby="dashboard-title">
+    <header class="dashboard-header">
+        <div>
+            <h1 class="dashboard-title" id="dashboard-title">Dashboard do Almoxarifado</h1>
+            <p class="dashboard-subtitle">
+                Acompanhe funcionários, estoque, empréstimos e pendências de EPI.
+            </p>
+        </div>
+
+        <div class="dashboard-update">
+            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+            <span id="ultima-atualizacao">Carregando dados...</span>
+        </div>
+    </header>
+
+    <div class="dashboard-alert" id="dashboard-alert" role="alert">
+        <span>
+            <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i>
+            Não foi possível carregar os dados do dashboard.
+        </span>
+        <button class="btn btn-sm btn-outline-danger" id="tentar-novamente" type="button">
+            Tentar novamente
+        </button>
+    </div>
+
+    <div class="metrics-grid" aria-live="polite">
+        <article class="metric-card metric-primary">
+            <div class="metric-card__top">
+                <div>
+                    <span class="metric-card__label">Funcionários cadastrados</span>
+                    <h2 class="metric-card__value" id="quantidade-funcionarios">
+                        <span class="loading-value" aria-label="Carregando"></span>
+                    </h2>
+                </div>
+                <div class="metric-icon">
+                    <i class="bi bi-people-fill" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="metric-card__description">Total de funcionários registrados no sistema.</p>
+        </article>
+
+        <article class="metric-card metric-purple">
+            <div class="metric-card__top">
+                <div>
+                    <span class="metric-card__label">EPIs cadastrados</span>
+                    <h2 class="metric-card__value" id="quantidade-epis">
+                        <span class="loading-value" aria-label="Carregando"></span>
+                    </h2>
+                </div>
+                <div class="metric-icon">
+                    <i class="bi bi-shield-check" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="metric-card__description">Quantidade total de equipamentos registrados.</p>
+        </article>
+
+        <article class="metric-card metric-info">
+            <div class="metric-card__top">
+                <div>
+                    <span class="metric-card__label">EPIs emprestados</span>
+                    <h2 class="metric-card__value" id="quantidade-epis-emprestados">
+                        <span class="loading-value" aria-label="Carregando"></span>
+                    </h2>
+                </div>
+                <div class="metric-icon">
+                    <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="metric-card__description">Equipamentos atualmente vinculados a funcionários.</p>
+        </article>
+
+        <article class="metric-card metric-warning">
+            <div class="metric-card__top">
+                <div>
+                    <span class="metric-card__label">Estoques baixos</span>
+                    <h2 class="metric-card__value" id="quantidade-estoques-baixos">
+                        <span class="loading-value" aria-label="Carregando"></span>
+                    </h2>
+                </div>
+                <div class="metric-icon">
+                    <i class="bi bi-box-seam" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="metric-card__description">Tipos de EPI que precisam de reposição.</p>
+        </article>
+
+        <article class="metric-card metric-danger">
+            <div class="metric-card__top">
+                <div>
+                    <span class="metric-card__label">Vencimentos próximos</span>
+                    <h2 class="metric-card__value" id="quantidade-vencimentos-proximos">
+                        <span class="loading-value" aria-label="Carregando"></span>
+                    </h2>
+                </div>
+                <div class="metric-icon">
+                    <i class="bi bi-calendar2-x" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="metric-card__description">Equipamentos que exigirão troca em breve.</p>
+        </article>
+
+        <article class="metric-card metric-success">
+            <div class="metric-card__top">
+                <div>
+                    <span class="metric-card__label">Entregas pendentes</span>
+                    <h2 class="metric-card__value" id="quantidade-entregas-pendentes">
+                        <span class="loading-value" aria-label="Carregando"></span>
+                    </h2>
+                </div>
+                <div class="metric-icon">
+                    <i class="bi bi-clipboard2-check" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="metric-card__description">Solicitações que ainda aguardam a entrega do EPI.</p>
+        </article>
+    </div>
+
+    <div class="dashboard-lower-grid">
+        <article class="summary-card">
+            <h2 class="section-title">Visão geral do estoque</h2>
+
+            <div class="stock-summary">
+                <div class="stock-item">
+                    <small>Total cadastrado</small>
+                    <strong id="resumo-total">—</strong>
+                </div>
+                <div class="stock-item">
+                    <small>Emprestado</small>
+                    <strong id="resumo-emprestado">—</strong>
+                </div>
+                <div class="stock-item">
+                    <small>Disponível estimado</small>
+                    <strong id="resumo-disponivel">—</strong>
+                </div>
+            </div>
+
+            <div
+                class="progress-track"
+                role="progressbar"
+                aria-label="Percentual de EPIs emprestados"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                id="barra-emprestimos"
+            >
+                <div class="progress-fill" id="progresso-emprestimos"></div>
+            </div>
+            <div class="progress-caption">
+                <span id="percentual-emprestado">0% dos EPIs estão emprestados</span>
+                <span>Disponibilidade calculada sobre o total cadastrado</span>
+            </div>
+        </article>
+
+        <aside class="summary-card">
+            <h2 class="section-title">Pontos de atenção</h2>
+
+            <div class="attention-list">
+                <div class="attention-item">
+                    <div class="attention-item__icon metric-warning">
+                        <i class="bi bi-box-seam" aria-hidden="true"></i>
+                    </div>
+                    <div class="attention-item__content">
+                        <strong>Reposição de estoque</strong>
+                        <span>Itens abaixo do nível recomendado</span>
+                    </div>
+                    <div class="attention-item__number" id="atencao-estoques">—</div>
+                </div>
+
+                <div class="attention-item">
+                    <div class="attention-item__icon metric-danger">
+                        <i class="bi bi-clock-history" aria-hidden="true"></i>
+                    </div>
+                    <div class="attention-item__content">
+                        <strong>Trocas próximas</strong>
+                        <span>Vencimentos que devem ser acompanhados</span>
+                    </div>
+                    <div class="attention-item__number" id="atencao-vencimentos">—</div>
+                </div>
+
+                <div class="attention-item">
+                    <div class="attention-item__icon metric-success">
+                        <i class="bi bi-clipboard-data" aria-hidden="true"></i>
+                    </div>
+                    <div class="attention-item__content">
+                        <strong>Entregas pendentes</strong>
+                        <span>Solicitações ainda não concluídas</span>
+                    </div>
+                    <div class="attention-item__number" id="atencao-entregas">—</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<script>
+    (() => {
+        const endpoint = "/almoxarife/dashboard/dados";
+        const formatarNumero = new Intl.NumberFormat("pt-BR");
+
+        const campos = {
+            quantidade_funcionarios: "quantidade-funcionarios",
+            quantidade_epis: "quantidade-epis",
+            quantidade_epis_emprestados: "quantidade-epis-emprestados",
+            quantidade_estoques_baixos: "quantidade-estoques-baixos",
+            quantidade_vencimentos_proximos: "quantidade-vencimentos-proximos",
+            quantidade_entregas_pendentes: "quantidade-entregas-pendentes"
+        };
+
+        function numeroSeguro(valor) {
+            const numero = Number(valor);
+            return Number.isFinite(numero) && numero >= 0 ? numero : 0;
+        }
+
+        function preencherDashboard(dados) {
+            Object.entries(campos).forEach(([chave, id]) => {
+                document.getElementById(id).textContent = formatarNumero.format(
+                    numeroSeguro(dados[chave])
+                );
+            });
+
+            const total = numeroSeguro(dados.quantidade_epis);
+            const emprestados = numeroSeguro(dados.quantidade_epis_emprestados);
+            const disponiveis = Math.max(total - emprestados, 0);
+            const percentual = total > 0
+                ? Math.min(Math.round((emprestados / total) * 100), 100)
+                : 0;
+
+            document.getElementById("resumo-total").textContent =
+                formatarNumero.format(total);
+            document.getElementById("resumo-emprestado").textContent =
+                formatarNumero.format(emprestados);
+            document.getElementById("resumo-disponivel").textContent =
+                formatarNumero.format(disponiveis);
+
+            document.getElementById("progresso-emprestimos").style.width =
+                `${percentual}%`;
+            document.getElementById("percentual-emprestado").textContent =
+                `${percentual}% dos EPIs estão emprestados`;
+            document.getElementById("barra-emprestimos")
+                .setAttribute("aria-valuenow", percentual);
+
+            document.getElementById("atencao-estoques").textContent =
+                formatarNumero.format(numeroSeguro(dados.quantidade_estoques_baixos));
+            document.getElementById("atencao-vencimentos").textContent =
+                formatarNumero.format(numeroSeguro(dados.quantidade_vencimentos_proximos));
+            document.getElementById("atencao-entregas").textContent =
+                formatarNumero.format(numeroSeguro(dados.quantidade_entregas_pendentes));
+        }
+
+        async function carregarDadosDashboard() {
+            const alerta = document.getElementById("dashboard-alert");
+            const atualizacao = document.getElementById("ultima-atualizacao");
+
+            alerta.classList.remove("is-visible");
+            atualizacao.textContent = "Atualizando dados...";
+
+            try {
+                const resposta = await fetch(endpoint, {
+                    method: "GET",
+                    credentials: "same-origin",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                });
+
+                if (!resposta.ok) {
+                    throw new Error(`Erro HTTP ${resposta.status}`);
+                }
+
+                const dados = await resposta.json();
+                preencherDashboard(dados);
+
+                const horario = new Intl.DateTimeFormat("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }).format(new Date());
+
+                atualizacao.textContent = `Atualizado às ${horario}`;
+            } catch (erro) {
+                console.error("Erro ao carregar o dashboard:", erro);
+                atualizacao.textContent = "Falha na atualização";
+                alerta.classList.add("is-visible");
+            }
+        }
+
+        document.getElementById("tentar-novamente")
+            .addEventListener("click", carregarDadosDashboard);
+
+        carregarDadosDashboard();
+    })();
+</script>

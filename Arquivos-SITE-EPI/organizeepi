@@ -1,0 +1,5 @@
+import subprocess
+import sys
+
+if sys.argv[1] == "ligar":
+    subprocess.run(["python", "backend/app.py"])

@@ -1,0 +1,1147 @@
+<style>
+body{
+    background:#EEF4F8;
+    font-family:"Segoe UI",sans-serif;
+}
+
+.page-title{
+    font-weight:700;
+    color:#1F2937;
+}
+
+.page-subtitle{
+    color:#64748B;
+}
+
+.dashboard-card{
+    border:none;
+    border-radius:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.section-title{
+    font-weight:600;
+    color:#334155;
+}
+
+.progress{
+    height:12px;
+    border-radius:20px;
+}
+
+.progress-bar{
+    font-weight:600;
+}
+
+.form-control,
+.form-select{
+    border-radius:10px;
+}
+
+.table td,
+.table th{
+    vertical-align:middle;
+}
+
+.table tbody tr:hover{
+    background:#F8FAFC;
+}
+
+.info-box{
+
+    background:#EFF6FF;
+
+    border-left:5px solid #2563EB;
+
+    border-radius:12px;
+
+    padding:18px;
+
+}
+
+.alert-box{
+
+    background:#FEF3C7;
+
+    border-left:5px solid #F59E0B;
+
+    border-radius:12px;
+
+    padding:18px;
+
+}
+
+.icon-circle{
+
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:1.4rem;
+
+}
+
+.btn{
+    border-radius:10px;
+}
+
+.small-title{
+    font-size:.85rem;
+    color:#64748B;
+    margin-bottom:4px;
+}
+</style>
+
+<div class="container-fluid p-4">
+
+    <!-- Cabeçalho -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title">
+
+                Justificativa das Alterações de Estoque
+
+            </h2>
+
+            <p class="page-subtitle">
+
+                Toda movimentação de estoque precisa ser documentada para manter a rastreabilidade dos equipamentos.
+
+            </p>
+
+        </div>
+
+        <a href="estoque.html" onclick="navegar(event, 'estoque')" class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Voltar
+
+        </a>
+
+    </div>
+
+    <!-- Progresso -->
+
+    <div class="card dashboard-card mb-4">
+
+        <div class="card-body">
+
+            <div class="d-flex justify-content-between">
+
+                <strong>
+
+                    Progresso
+
+                </strong>
+
+                <span>
+
+                    1 de 2 alterações
+
+                </span>
+
+            </div>
+
+            <div class="progress mt-3">
+
+                <div
+                class="progress-bar bg-primary"
+                style="width:50%">
+
+                    50%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Resumo -->
+
+    <div class="row mb-4">
+
+        <div class="col-lg-4">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body d-flex align-items-center">
+
+                    <div class="icon-circle bg-success text-white me-3">
+
+                        <i class="bi bi-plus-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="small-title">
+
+                            Equipamentos adicionados
+
+                        </div>
+
+                        <h3>
+
+                            150
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body d-flex align-items-center">
+
+                    <div class="icon-circle bg-danger text-white me-3">
+
+                        <i class="bi bi-dash-lg"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="small-title">
+
+                            Equipamentos removidos
+
+                        </div>
+
+                        <h3>
+
+                            3
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card dashboard-card">
+
+                <div class="card-body d-flex align-items-center">
+
+                    <div class="icon-circle bg-primary text-white me-3">
+
+                        <i class="bi bi-shield-check"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="small-title">
+
+                            Tipos de EPIs
+
+                        </div>
+
+                        <h3>
+
+                            2
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Informação -->
+
+    <div class="info-box mb-4">
+
+        <h5>
+
+            <i class="bi bi-info-circle-fill text-primary"></i>
+
+            Entrada de novos equipamentos
+
+        </h5>
+
+        Para equipamentos adicionados ao estoque é necessário registrar as informações de origem, lote e identificação individual.
+
+    </div>
+
+    <!-- Card -->
+
+    <div class="card dashboard-card">
+
+        <div class="card-header bg-white">
+
+            <h4 class="mb-0">
+
+                Capacete MSA V-Gard
+
+            </h4>
+
+            <small class="text-secondary">
+
+                150 equipamentos adicionados ao estoque
+
+            </small>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <label>
+
+                        Fornecedor
+
+                    </label>
+
+                    <input
+                    class="form-control"
+                    placeholder="Fornecedor">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>
+
+                        Nota Fiscal
+
+                    </label>
+
+                    <input
+                    class="form-control">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>
+
+                        Lote
+
+                    </label>
+
+                    <input
+                    class="form-control">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>
+
+                        Data da Compra
+
+                    </label>
+
+                    <input
+                    type="date"
+                    class="form-control">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>
+
+                        Garantia
+
+                    </label>
+
+                    <input
+                    class="form-control">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>
+
+                        Certificado de Aprovação (CA)
+
+                    </label>
+
+                    <input
+                    class="form-control">
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h5>
+
+                    Identificação individual dos equipamentos
+
+                </h5>
+
+                <button class="btn btn-outline-primary">
+
+                    <i class="bi bi-upload"></i>
+
+                    Importar CSV
+
+                </button>
+
+            </div>
+
+            <table class="table table-bordered align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th width="8%">
+
+                            #
+
+                        </th>
+
+                        <th>
+
+                            Patrimônio
+
+                        </th>
+
+                        <th>
+
+                            Número de Série
+
+                        </th>
+
+                        <th>
+
+                            Observação
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+
+                            1
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control"
+                            placeholder="000001">
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control"
+                            placeholder="Número de Série">
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control"
+                            placeholder="Opcional">
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            2
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control">
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control">
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control">
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            3
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control">
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control">
+
+                        </td>
+
+                        <td>
+
+                            <input
+                            class="form-control">
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <div class="text-center mt-3">
+
+                <button class="btn btn-outline-secondary">
+
+                    Carregar mais registros...
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ========================================================= -->
+<!-- BAIXA DE EQUIPAMENTOS                                     -->
+<!-- ========================================================= -->
+
+<div class="alert-box mt-4 mb-4">
+
+    <h5>
+
+        <i class="bi bi-exclamation-triangle-fill text-warning"></i>
+
+        Baixa de equipamentos
+
+    </h5>
+
+    Todo equipamento removido do estoque deve possuir um motivo.
+    Caso não seja possível identificar o equipamento específico,
+    a baixa será registrada como <strong>"Sem Identificação"</strong>.
+
+</div>
+
+<div class="card dashboard-card mb-4">
+
+    <div class="card-header bg-white">
+
+        <h4 class="mb-0">
+
+            Botina Bracol Bico de Aço
+
+        </h4>
+
+        <small class="text-secondary">
+
+            3 equipamentos removidos do estoque
+
+        </small>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+
+                <label>
+
+                    Motivo da Baixa
+
+                </label>
+
+                <select class="form-select">
+
+                    <option>Equipamento Danificado</option>
+                    <option>Extraviado</option>
+                    <option>Descarte por Validade</option>
+                    <option>Roubo/Furto</option>
+                    <option>Outro</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-4 mb-3">
+
+                <label>
+
+                    Responsável
+
+                </label>
+
+                <input
+                class="form-control"
+                placeholder="Nome do responsável">
+
+            </div>
+
+            <div class="col-md-4 mb-3">
+
+                <label>
+
+                    Data da ocorrência
+
+                </label>
+
+                <input
+                type="date"
+                class="form-control">
+
+            </div>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label>
+
+                Descrição da ocorrência
+
+            </label>
+
+            <textarea
+            rows="3"
+            class="form-control"
+            placeholder="Explique resumidamente o ocorrido..."></textarea>
+
+        </div>
+
+        <hr>
+
+        <h5 class="mb-3">
+
+            Equipamentos Identificados
+
+        </h5>
+
+        <table class="table table-bordered align-middle">
+
+            <thead class="table-light">
+
+                <tr>
+
+                    <th width="8%">
+
+                        #
+
+                    </th>
+
+                    <th>
+
+                        Patrimônio
+
+                    </th>
+
+                    <th>
+
+                        Número de Série
+
+                    </th>
+
+                    <th>
+
+                        Observação
+
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>1</td>
+
+                    <td>
+
+                        <input
+                        class="form-control"
+                        placeholder="Patrimônio">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                        class="form-control"
+                        placeholder="Número de Série">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>2</td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>3</td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                    <td>
+
+                        <input
+                        class="form-control">
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <div class="form-check form-switch mt-4">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="semIdentificacao">
+
+            <label
+            class="form-check-label"
+            for="semIdentificacao">
+
+                Não possuo a identificação dos equipamentos removidos.
+
+            </label>
+
+        </div>
+
+        <div class="alert alert-warning mt-3">
+
+            <strong>
+
+                O que acontece se eu marcar esta opção?
+
+            </strong>
+
+            <hr>
+
+            <ul class="mb-0">
+
+                <li>
+
+                    O sistema diminuirá apenas a quantidade em estoque.
+
+                </li>
+
+                <li>
+
+                    Os equipamentos permanecerão registrados como
+                    <strong>Baixa sem Identificação.</strong>
+
+                </li>
+
+                <li>
+
+                    Posteriormente será possível localizar os equipamentos
+                    corretos e vinculá-los ao registro desta baixa.
+
+                </li>
+
+                <li>
+
+                    Todo o histórico da alteração continuará armazenado.
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="mt-4">
+
+            <label>
+
+                Observações da baixa
+
+            </label>
+
+            <textarea
+            rows="4"
+            class="form-control"
+            placeholder="Informações adicionais..."></textarea>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ========================================================= -->
+<!-- RESUMO DA MOVIMENTAÇÃO                                    -->
+<!-- ========================================================= -->
+
+<div class="card dashboard-card mb-4">
+
+    <div class="card-header bg-white">
+
+        <h4 class="mb-0">
+
+            Resumo da Movimentação
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <h2 class="text-success mb-1">
+
+                    +150
+
+                </h2>
+
+                <small class="text-secondary">
+
+                    Equipamentos adicionados
+
+                </small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h2 class="text-danger mb-1">
+
+                    -3
+
+                </h2>
+
+                <small class="text-secondary">
+
+                    Equipamentos removidos
+
+                </small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h2 class="text-primary mb-1">
+
+                    2
+
+                </h2>
+
+                <small class="text-secondary">
+
+                    Tipos de EPIs alterados
+
+                </small>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <h2 class="text-warning mb-1">
+
+                    1
+
+                </h2>
+
+                <small class="text-secondary">
+
+                    Baixa sem identificação
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!-- CHECKLIST                                                  -->
+<!-- ========================================================= -->
+
+<div class="card dashboard-card mb-4">
+
+    <div class="card-header bg-white">
+
+        <h4 class="mb-0">
+
+            Conferência Final
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <p class="text-secondary">
+
+            Antes de confirmar, verifique se todas as informações estão corretas.
+
+        </p>
+
+        <div class="form-check mb-3">
+
+            <input class="form-check-input" type="checkbox" id="c1">
+
+            <label class="form-check-label" for="c1">
+
+                Confirmei a quantidade de equipamentos adicionados.
+
+            </label>
+
+        </div>
+
+        <div class="form-check mb-3">
+
+            <input class="form-check-input" type="checkbox" id="c2">
+
+            <label class="form-check-label" for="c2">
+
+                Confirmei as informações de fornecedor, lote e nota fiscal.
+
+            </label>
+
+        </div>
+
+        <div class="form-check mb-3">
+
+            <input class="form-check-input" type="checkbox" id="c3">
+
+            <label class="form-check-label" for="c3">
+
+                As baixas possuem justificativa adequada.
+
+            </label>
+
+        </div>
+
+        <div class="form-check mb-3">
+
+            <input class="form-check-input" type="checkbox" id="c4">
+
+            <label class="form-check-label" for="c4">
+
+                Estou ciente de que esta operação ficará registrada permanentemente no histórico do sistema.
+
+            </label>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!-- OBSERVAÇÕES GERAIS                                        -->
+<!-- ========================================================= -->
+
+<div class="card dashboard-card mb-4">
+
+    <div class="card-header bg-white">
+
+        <h4 class="mb-0">
+
+            Observações Gerais
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <textarea
+        rows="6"
+        class="form-control"
+        placeholder="Caso necessário, registre observações adicionais sobre esta movimentação de estoque..."></textarea>
+
+    </div>
+
+</div>
+
+<!-- ========================================================= -->
+<!-- ALERTA                                                    -->
+<!-- ========================================================= -->
+
+<div class="alert alert-info">
+
+    <h5>
+
+        <i class="bi bi-shield-lock"></i>
+
+        Registro Permanente
+
+    </h5>
+
+    Todas as alterações realizadas nesta operação serão registradas no histórico do OrganizeEPI, incluindo:
+
+    <ul class="mt-3 mb-0">
+
+        <li>Data e horário da alteração.</li>
+
+        <li>Usuário responsável.</li>
+
+        <li>Equipamentos adicionados.</li>
+
+        <li>Equipamentos removidos.</li>
+
+        <li>Justificativas informadas.</li>
+
+        <li>Equipamentos sem identificação (quando houver).</li>
+
+        <li>Histórico para auditoria.</li>
+
+    </ul>
+
+</div>
+
+<!-- ========================================================= -->
+<!-- BOTÕES                                                    -->
+<!-- ========================================================= -->
+
+<div class="d-flex justify-content-between mt-4 mb-5">
+
+    <button class="btn btn-outline-secondary btn-lg">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Voltar
+
+    </button>
+
+    <div>
+
+        <button class="btn btn-outline-danger btn-lg me-2">
+
+            Cancelar
+
+        </button>
+
+        <button class="btn btn-success btn-lg px-5">
+
+            <i class="bi bi-check-circle-fill"></i>
+
+            Confirmar Alterações
+
+        </button>
+
+    </div>
+
+</div>
